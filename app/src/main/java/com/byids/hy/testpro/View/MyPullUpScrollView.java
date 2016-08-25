@@ -84,7 +84,7 @@ public class MyPullUpScrollView extends ScrollView{
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i("result", "onInterceptTouchEvent:=======上拉Scroll预处理========= ");
+        //Log.i("result", "onInterceptTouchEvent:=======上拉Scroll预处理========= ");
         return super.onInterceptTouchEvent(ev);
         //return true;
     }
@@ -97,7 +97,7 @@ public class MyPullUpScrollView extends ScrollView{
         }else {
             commOnTouchEvent(ev);
         }
-        Log.i("result", "onTouchEvent: =======上拉Scroll处理事件============");
+        //Log.i("result", "onTouchEvent: =======上拉Scroll处理事件============");
         return super.onTouchEvent(ev);
         //return false;
     }

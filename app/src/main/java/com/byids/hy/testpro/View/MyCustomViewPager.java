@@ -40,14 +40,14 @@ public class MyCustomViewPager extends ViewPager{
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i("result", "dispatchTouchEvent: =====viewpager的预处理======");
+        //Log.i("result", "dispatchTouchEvent: =====viewpager的预处理======");
         return super.onInterceptTouchEvent(ev);
         //return true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.i("result", "onTouchEvent: ========viewpager的处理事件==========");
+        //Log.i("result", "onTouchEvent: ========viewpager的处理事件==========");
         return super.onTouchEvent(ev);
     }
 }

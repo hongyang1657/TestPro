@@ -153,6 +153,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
         //手势
         activity = getActivity();
         gestureDetector = new GestureDetector(activity,new MyCustomGesture());
+
         listener = new MyMainActivity.MyOntouchListener(){
 
             @Override
@@ -179,7 +180,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
         public void onScrollChanged(MyPullUpScrollView scrollView, int x, int y, int oldx, int oldy) {
             //加入手势，松开的时候 判断距离，选择菜单栏出现还是隐藏的动画
             scrollY = y;
-            Log.i("result", "onScrollChanged:-----------x-----------"+x+"----------y---------"+y);
+            //Log.i("result", "onScrollChanged:-----------x-----------"+x+"----------y---------"+y);
 
 
 
@@ -310,19 +311,31 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
         scrollView.scrollTo(x,y);
     }
 
-    @Override
+    /*@Override
     public void onScrollConnectionDown(MyCustomScrollView scrollView, int x, int y, int oldx, int oldy) {
         svPullUpMenu.scrollTo(x,y);
-    }
+    }*/
 
 
 
     //手势
-    private class MyCustomGesture extends GestureDetector.SimpleOnGestureListener{
+    public class MyCustomGesture extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             Log.i("result", "onSingleTapUp: ---------songshou----------");
             return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            Log.i("result", "onScroll:------------------ "+distanceX);
+            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Log.i("result", "onScroll:------------------ ");
+            return true;
         }
     }
 
