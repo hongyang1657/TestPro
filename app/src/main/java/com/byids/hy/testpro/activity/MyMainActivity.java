@@ -92,12 +92,12 @@ public class MyMainActivity extends FragmentActivity {
                     ivMusic.setVisibility(View.GONE);
                     ivMedia.setVisibility(View.GONE);
                     //设置viewpager不能滑动
-                    viewPager.setCanScroll(false);
+                    //viewPager.setCanScroll(false);
                 }else if (b==true){     //下拉菜单隐藏时
                     tvRoom.setVisibility(View.VISIBLE);
                     ivMusic.setVisibility(View.VISIBLE);
                     ivMedia.setVisibility(View.VISIBLE);
-                    viewPager.setCanScroll(true);
+                    //viewPager.setCanScroll(true);
                 }
             }
         });
@@ -170,12 +170,15 @@ public class MyMainActivity extends FragmentActivity {
     }
 
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i(TAG, "onTouchEvent: ====activity处理事件======");
         for (MyOntouchListener listener : touchListeners){
             listener.onTouchEvent(event);
         }
         return super.onTouchEvent(event);
+        //return false;
     }
 
     private ArrayList<MyOntouchListener> touchListeners = new ArrayList<MyOntouchListener>();
@@ -191,6 +194,7 @@ public class MyMainActivity extends FragmentActivity {
     public interface MyOntouchListener{
         public void onTouchEvent(MotionEvent event);
     }
+
 
 
 }

@@ -39,22 +39,22 @@ public class MyCustomScrollView extends ScrollView{
         this.gestureDetector = gestureDetector;
     }
 
-    public void setScrollViewListener(ScrollViewListener scrollViewListener){
+    /*public void setScrollViewListener(ScrollViewListener scrollViewListener){
         this.scrollViewListener = scrollViewListener;
-    }
+    }*/
 
 
 
 
-    @SuppressLint("MissingSuperCall")
+    /*@SuppressLint("MissingSuperCall")
     @Override
     protected void onFinishInflate() {
         if (getChildCount()>0){
             inner = getChildAt(0);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (inner==null){
             return super.onTouchEvent(ev);
@@ -62,17 +62,17 @@ public class MyCustomScrollView extends ScrollView{
             commOnTouchEvent(ev);
         }
         return super.onTouchEvent(ev);
-    }
+    }*/
 
-    public void commOnTouchEvent(MotionEvent ev) {
+    /*public void commOnTouchEvent(MotionEvent ev) {
         scrollViewListener.onCommOnTouchEvent(this,ev);
 
-    }
+    }*/
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
-        //return true;
+        //return false;
     }
 
     //设置两个ScrollView联动监听
@@ -80,16 +80,30 @@ public class MyCustomScrollView extends ScrollView{
         this.pullUpMenuListener = pullUpMenuListener;
     }*/
 
-    @Override
+    /*@Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         //联动
-        /*if (pullUpMenuListener != null) {
+        *//*if (pullUpMenuListener != null) {
             pullUpMenuListener.onScrollConnectionDown(this,l,t,oldl,oldt);
-        }*/
+        }*//*
 
         if (scrollViewListener != null) {
             scrollViewListener.onScrollChanged(this, l, t, oldl, oldt);
         }
+    }*/
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.i("result", "onInterceptTouchEvent: ======下拉Scroll的预处理========");
+        return super.onInterceptTouchEvent(ev);
+        //return true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        Log.i("result", "onTouchEvent: ======下拉Scroll处理事件========");
+        return super.onTouchEvent(ev);
+        //return false;
     }
 }

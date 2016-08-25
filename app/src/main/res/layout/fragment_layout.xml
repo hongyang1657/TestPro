@@ -104,6 +104,12 @@
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="400dp" />
+                    <TextView
+                        android:text="111111"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp" />
                 </LinearLayout>
             </com.byids.hy.testpro.View.MyPullUpScrollView>
 
