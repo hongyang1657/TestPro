@@ -55,11 +55,13 @@ public class MyMainActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MyMainActivity.this, "room", Toast.LENGTH_SHORT).show();
+                viewPager.setCurrentItem(1);
             }
         });
         ivMusic = (ImageView) findViewById(R.id.iv_music);
         ivMedia = (ImageView) findViewById(R.id.iv_media);
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
+
 
         MyFragment myFragment1 = new MyFragment("头1","房间1");
         pullMenu(myFragment1);
@@ -171,7 +173,7 @@ public class MyMainActivity extends FragmentActivity {
 
 
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "onTouchEvent: ====activity处理事件======");
         for (MyOntouchListener listener : touchListeners){
@@ -193,8 +195,31 @@ public class MyMainActivity extends FragmentActivity {
 
     public interface MyOntouchListener{
         public void onTouchEvent(MotionEvent event);
+    }*/
+
+
+    private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(
+            10);
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        for (MyOnTouchListener listener : onTouchListeners) {
+            listener.onTouch(ev);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
+    public void registerMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
+        onTouchListeners.add(myOnTouchListener);
+    }
+
+    public void unregisterMyOnTouchListener(MyOnTouchListener myOnTouchListener) {
+        onTouchListeners.remove(myOnTouchListener);
+    }
+
+    public interface MyOnTouchListener {
+        public boolean onTouch(MotionEvent ev);
+    }
 
 
 }

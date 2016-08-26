@@ -38,7 +38,7 @@ import com.byids.hy.testpro.activity.MyMainActivity;
  * Created by hy on 2016/8/15.
  */
 @SuppressLint({"ValidFragment", "NewApi"})
-public class MyFragment extends Fragment implements PullUpMenuListener{
+public class MyFragment extends Fragment implements PullUpMenuListener,GestureDetector.OnGestureListener {
     private LinearLayout linearMenu;  //下拉菜单
     private TextView tvSet;
     private TextView tvMonitoring; //监控
@@ -50,8 +50,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
     private MyCustomScrollView scrollView;
     private String btName;
     private String roomName;
-    private GestureDetector gestureDetector;
-    private MyMainActivity.MyOntouchListener listener;
+    private GestureDetector detector;
+    //private MyMainActivity.MyOntouchListener listener;
     private Activity activity;
     private Button btPullMenu;
     private RelativeLayout linear;
@@ -152,16 +152,16 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         //手势
         activity = getActivity();
-        gestureDetector = new GestureDetector(activity,new MyCustomGesture());
+        //gestureDetector = new GestureDetector(activity,new MyCustomGesture());
 
-        listener = new MyMainActivity.MyOntouchListener(){
+        /*listener = new MyMainActivity.MyOntouchListener(){
 
             @Override
             public void onTouchEvent(MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
             }
         };
-        ((MyMainActivity) activity).registerListener(listener);
+        ((MyMainActivity) activity).registerListener(listener);*/
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -309,6 +309,36 @@ public class MyFragment extends Fragment implements PullUpMenuListener{
     @Override
     public void onScrollConnection(MyPullUpScrollView scrollView0, int x, int y, int oldx, int oldy) {
         scrollView.scrollTo(x,y);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
     }
 
     /*@Override
