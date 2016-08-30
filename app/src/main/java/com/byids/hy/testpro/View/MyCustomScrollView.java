@@ -103,7 +103,7 @@ public class MyCustomScrollView extends ScrollView{
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         //Log.i("result", "onTouchEvent: ======下拉Scroll处理事件========");
-        return super.onTouchEvent(ev);
-        //return false;
+        //return super.onTouchEvent(ev);
+        return false;
     }
 }

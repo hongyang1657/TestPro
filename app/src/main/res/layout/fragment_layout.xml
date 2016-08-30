@@ -74,8 +74,8 @@
 
             <com.byids.hy.testpro.View.MyPullUpScrollView
                 android:id="@+id/scroll_pull_up"
-                android:layout_below="@id/linear_menu"
                 android:scrollbars="none"
+                android:layout_below="@id/linear_menu"
                 android:layout_width="match_parent"
                 android:layout_height="686dp">
 

@@ -11,7 +11,7 @@
         android:gravity="bottom"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="750dp" />
     <LinearLayout
         android:orientation="vertical"
         android:background="#ffffff"
@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/tv_scene"
             android:text="场景"
+            android:clickable="true"
             android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

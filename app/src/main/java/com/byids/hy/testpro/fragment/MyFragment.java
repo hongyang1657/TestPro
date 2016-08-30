@@ -99,10 +99,46 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         svPullUpMenu.setScrollViewListener(pullDownListener);
 
         svPullUpMenu.setOnTouchListener(new View.OnTouchListener() {
+            //判断ScrollView是否停下
+            private int lastY = 0;
+            private int touchEventId = -9983761;
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    View scroller = (View) msg.obj;
+                    if (msg.what == touchEventId) {
+                        if (lastY == scroller.getScrollY()) {
+                            handleStop(scroller);
+                        } else {
+                            handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller), 5);
+                            lastY = scroller.getScrollY();
+                        }
+                    }
+                }
+            };
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    handler.sendMessageDelayed(handler.obtainMessage(touchEventId, view), 5);
+                }
+
                 svPullUpMenu.getParent().requestDisallowInterceptTouchEvent(true);
                 return false;
+            }
+
+            private void handleStop(Object view) {
+                ScrollView scroller = (ScrollView) view;
+                int mScrollY = scroller.getScrollY();
+                if (mScrollY>((btHeight*3)/2)&&mScrollY<(btHeight*3)){
+                    scrollToBottom();        //滑动到隐藏头
+                    pullDown(true);
+
+                }else if(mScrollY<=((btHeight*3)/2)){
+                    scrollToTop();           //滑动到显示头
+                    pullDown(false);
+                }
             }
         });
 
@@ -290,7 +326,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 btPullMenu.setVisibility(View.VISIBLE);
             }
         });
-
     }
     private void scrollToTop(){
         Handler handler = new Handler();
