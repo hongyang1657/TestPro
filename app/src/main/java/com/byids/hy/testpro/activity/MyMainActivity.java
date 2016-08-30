@@ -102,6 +102,11 @@ public class MyMainActivity extends FragmentActivity {
                     //viewPager.setCanScroll(true);
                 }
             }
+
+            @Override
+            public void scrollPager() {
+
+            }
         });
     }
 

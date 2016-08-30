@@ -5,4 +5,5 @@ package com.byids.hy.testpro;
  */
 public interface PullDownMenuListener {
     void pullDown(boolean b);
+    void scrollPager();
 }

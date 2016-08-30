@@ -39,6 +39,8 @@ import com.byids.hy.testpro.activity.MyMainActivity;
  */
 @SuppressLint({"ValidFragment", "NewApi"})
 public class MyFragment extends Fragment implements PullUpMenuListener,GestureDetector.OnGestureListener {
+    private String TAG = "result";
+    
     private LinearLayout linearMenu;  //下拉菜单
     private TextView tvSet;
     private TextView tvMonitoring; //监控
@@ -144,6 +146,19 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
         scrollToBottom();
 
+        //手势
+        final GestureDetector mGestureDetector = new GestureDetector(
+                getActivity(), this);
+        MyMainActivity.MyOnTouchListener myOnTouchListener = new MyMainActivity.MyOnTouchListener() {
+            @Override
+            public boolean onTouch(MotionEvent ev) {
+                boolean result = mGestureDetector.onTouchEvent(ev);
+                return result;
+            }
+        };
+
+        ((MyMainActivity) getActivity()).registerMyOnTouchListener(myOnTouchListener);
+
         return view;
 
     }
@@ -168,6 +183,9 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     //自定义设置的下拉菜单监听
     public void pullDown(boolean f){
         pullDownMenuListener.pullDown(f);
+    }
+    public void scrollPager(){
+        pullDownMenuListener.scrollPager();
     }
 
     public void setPullDownMenuListener(PullDownMenuListener pullDownMenuListener){
@@ -311,35 +329,81 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         scrollView.scrollTo(x,y);
     }
 
+
+    /*
+     *    ---------------------------手势-----------------------------
+     */
     @Override
     public boolean onDown(MotionEvent motionEvent) {
+        //Log.i(TAG, "onDown: ----------");
         return false;
     }
 
     @Override
     public void onShowPress(MotionEvent motionEvent) {
-
+        //Log.i(TAG, "onShowPress: ---------");
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent motionEvent) {
+        //Log.i(TAG, "onSingleTapUp: ---------");
         return false;
     }
 
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        Log.i("result", "onScroll:---------------- "+motionEvent1);
+        Log.i(TAG, "onScroll: =================="+v);
         return false;
     }
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
+        //Log.i(TAG, "onLongPress: ------------");
     }
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        try {
+            if (motionEvent.getX() - motionEvent1.getX() < -89) {
+                flingLeft();
+                return true;
+            } else if (motionEvent.getX() - motionEvent1.getX() > 89) {
+                flingRight();
+                return true;
+            }else if (motionEvent.getY() - motionEvent1.getY() > 89) {
+                flingUp();       //上滑
+                return true;
+            }else if (motionEvent.getY() - motionEvent1.getY() > 89) {
+                flingDown();       //下滑
+                return true;
+            }
+        } catch (Exception e) {
+        }
         return false;
     }
+
+    public void flingLeft() {//自定义方法：处理向左滑动事件
+        //Log.i("result", "flingLeft:------left-------");
+    }
+
+    public void flingRight() {//自定义方法：处理向右滑动事件
+        //Log.i("result", "flingLeft:------right-------");
+    }
+
+    public void flingUp() {          //自定义方法：处理向上滑动事件
+        Log.i(TAG, "flingUp: 上滑");
+        //scrollToBottom();        //滑动到隐藏头
+        pullDown(true);
+    }
+
+    public void flingDown() {        //自定义方法：处理向下滑动事件
+        //scrollToTop();
+        //pullDown(false);
+    }
+
+
+
 
     /*@Override
     public void onScrollConnectionDown(MyCustomScrollView scrollView, int x, int y, int oldx, int oldy) {
@@ -348,7 +412,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
 
 
-    //手势
+    /*//手势
     public class MyCustomGesture extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
@@ -367,7 +431,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             Log.i("result", "onScroll:------------------ ");
             return true;
         }
-    }
+    }*/
 
 
 

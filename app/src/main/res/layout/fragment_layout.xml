@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.byids.hy.testpro.View.MyCustomScrollView
+        android:clickable="false"
         android:id="@+id/id_scroll"
         android:scrollbars="none"
         android:layout_width="match_parent"
@@ -75,41 +77,21 @@
                 android:layout_below="@id/linear_menu"
                 android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="686dp">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
-                        android:text="111111"
-                        android:gravity="center"
+                    <fragment
+                        android:id="@+id/fragment"
+                        android:name="com.byids.hy.testpro.fragment.ControllerFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="380dp" />
-                    <TextView
-                        android:text="111111"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="380dp" />
-                    <TextView
-                        android:text="111111"
-                        android:background="#ffffff"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp" />
-                    <TextView
-                        android:text="111111"
-                        android:background="#ffffff"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp" />
-                    <TextView
-                        android:text="111111"
-                        android:background="#ffffff"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp" />
+                        android:layout_height="wrap_content"
+                        tools:layout="@layout/controller_fragment_layout" />
+
+
                 </LinearLayout>
             </com.byids.hy.testpro.View.MyPullUpScrollView>
 
