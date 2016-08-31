@@ -7,7 +7,6 @@
     <com.byids.hy.testpro.View.MyCustomScrollView
         android:clickable="false"
         android:id="@+id/id_scroll"
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,8 +27,9 @@
                     android:clickable="true"
                     android:text="设置"
                     android:layout_weight="1"
+                    android:drawablePadding="6dp"
                     android:padding="10dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/allroomcontrol_shezhi_s"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -38,8 +38,9 @@
                     android:clickable="true"
                     android:text="监控"
                     android:layout_weight="1"
+                    android:drawablePadding="6dp"
                     android:padding="10dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/jiankong_s"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -48,8 +49,9 @@
                     android:clickable="true"
                     android:text="门锁"
                     android:layout_weight="1"
+                    android:drawablePadding="6dp"
                     android:padding="10dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/allroomcontrol_mensuo_s"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -58,8 +60,9 @@
                     android:clickable="true"
                     android:text="布防"
                     android:layout_weight="1"
+                    android:drawablePadding="6dp"
                     android:padding="10dp"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@mipmap/allroomcontrol_bufang_s"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -72,36 +75,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.byids.hy.testpro.View.MyPullUpScrollView
-                android:id="@+id/scroll_pull_up"
-                android:scrollbars="none"
-                android:layout_below="@id/linear_menu"
-                android:layout_width="match_parent"
-                android:layout_height="686dp">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <fragment
-                        android:id="@+id/fragment"
-                        android:name="com.byids.hy.testpro.fragment.ControllerFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:layout="@layout/controller_fragment_layout" />
-
-
-                </LinearLayout>
-            </com.byids.hy.testpro.View.MyPullUpScrollView>
 
         </RelativeLayout>
     </com.byids.hy.testpro.View.MyCustomScrollView>
-    <Button
+
+    <com.byids.hy.testpro.View.MyPullUpScrollView
+        android:id="@+id/scroll_pull_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/fragment"
+                android:name="com.byids.hy.testpro.fragment.ControllerFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/controller_fragment_layout" />
+
+
+        </LinearLayout>
+    </com.byids.hy.testpro.View.MyPullUpScrollView>
+    <ImageView
         android:id="@+id/button"
         android:focusable="true"
         android:clickable="true"
-        android:text="下拉菜单"
+        android:src="@mipmap/homeicon_s"
+        android:background="@mipmap/myhomeback_s"
         android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"

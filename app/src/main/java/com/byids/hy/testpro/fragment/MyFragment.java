@@ -55,7 +55,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private GestureDetector detector;
     //private MyMainActivity.MyOntouchListener listener;
     private Activity activity;
-    private Button btPullMenu;
+    private ImageView btPullMenu;
     private RelativeLayout linear;
 
     //上拉菜单
@@ -81,7 +81,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linear = (RelativeLayout) view.findViewById(R.id.linear);
         linearMenu = (LinearLayout) view.findViewById(R.id.linear_menu);
         imageView = (ImageView) view.findViewById(R.id.id_iv);
-        btPullMenu = (Button) view.findViewById(R.id.button);
+        btPullMenu = (ImageView) view.findViewById(R.id.button);
         tvSet = (TextView) view.findViewById(R.id.tv_set);
         tvMonitoring = (TextView) view.findViewById(R.id.tv_monitoring);
         tvLock = (TextView) view.findViewById(R.id.tv_lock);

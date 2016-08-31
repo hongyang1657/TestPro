@@ -9,6 +9,7 @@
         android:text="房间名"
         android:textSize="28sp"
         android:gravity="bottom"
+        android:clickable="true"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="750dp" />
