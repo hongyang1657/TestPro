@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by hy on 2016/8/15.
  */
-public class MyMainActivity extends FragmentActivity {
+public class MyMainActivity extends FragmentActivity{
     private String TAG = "result";
 
     private MyCustomViewPager viewPager;
@@ -50,26 +50,19 @@ public class MyMainActivity extends FragmentActivity {
         initView();
     }
     private void initView(){
-        tvRoom = (TextView) findViewById(R.id.tv_room);
-        tvRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MyMainActivity.this, "room", Toast.LENGTH_SHORT).show();
-                viewPager.setCurrentItem(1);
-            }
-        });
+
         ivMusic = (ImageView) findViewById(R.id.iv_music);
         ivMedia = (ImageView) findViewById(R.id.iv_media);
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
 
-        MyFragment myFragment1 = new MyFragment("头1","房间1");
+        MyFragment myFragment1 = new MyFragment("头1","客厅",R.mipmap.back_7);
         pullMenu(myFragment1);
         viewList.add(myFragment1);
-        MyFragment myFragment2 = new MyFragment("头2","房间2");
+        MyFragment myFragment2 = new MyFragment("头2","卧室",R.mipmap.back_9);
         pullMenu(myFragment2);
         viewList.add(myFragment2);
-        MyFragment myFragment3 = new MyFragment("头3","房间3");
+        MyFragment myFragment3 = new MyFragment("头3","书房",R.mipmap.back_10);
         pullMenu(myFragment3);
         viewList.add(myFragment3);
 
@@ -90,13 +83,11 @@ public class MyMainActivity extends FragmentActivity {
             public void pullDown(boolean b) {
                 if (b==false){      //下拉菜单出现时
                     //隐藏桌面小控件
-                    tvRoom.setVisibility(View.GONE);
                     ivMusic.setVisibility(View.GONE);
                     ivMedia.setVisibility(View.GONE);
                     //设置viewpager不能滑动
                     viewPager.setCanScroll(false);
                 }else if (b==true){     //下拉菜单隐藏时
-                    tvRoom.setVisibility(View.VISIBLE);
                     ivMusic.setVisibility(View.VISIBLE);
                     ivMedia.setVisibility(View.VISIBLE);
                     viewPager.setCanScroll(true);
@@ -153,21 +144,17 @@ public class MyMainActivity extends FragmentActivity {
     };
     //滑动viewpager时，控件消失
     private void scrollViewPager(){
-        tvRoom.setVisibility(View.GONE);
         ivMusic.setVisibility(View.GONE);
         ivMedia.setVisibility(View.GONE);
     }
     //滑动结束后，控件显现
     private void downScrollViewPager(String roomName){
-        tvRoom.setText(roomName);
         showAnimation();
-        tvRoom.setVisibility(View.VISIBLE);
         ivMusic.setVisibility(View.VISIBLE);
         ivMedia.setVisibility(View.VISIBLE);
     }
     //控件滑出显示的动画
     private void showAnimation(){
-        ObjectAnimator.ofFloat(tvRoom,"translationX",-400,6,0).setDuration(1200).start();
         ObjectAnimator.ofFloat(ivMusic,"translationX",200,-6,0).setDuration(1200).start();
         ObjectAnimator oa1 = ObjectAnimator.ofFloat(ivMedia,"translationX",250,-6,0);
         oa1.setDuration(1300);
@@ -178,33 +165,7 @@ public class MyMainActivity extends FragmentActivity {
 
 
 
-    /*@Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Log.i(TAG, "onTouchEvent: ====activity处理事件======");
-        for (MyOntouchListener listener : touchListeners){
-            listener.onTouchEvent(event);
-        }
-        return super.onTouchEvent(event);
-        //return false;
-    }
-
-    private ArrayList<MyOntouchListener> touchListeners = new ArrayList<MyOntouchListener>();
-
-    public void registerListener(MyOntouchListener listener){
-        touchListeners.add(listener);
-    }
-
-    public void unRegisterListener(MyOntouchListener listener){
-        touchListeners.remove(listener);
-    }
-
-    public interface MyOntouchListener{
-        public void onTouchEvent(MotionEvent event);
-    }*/
-
-
-    private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(
-            10);
+    private ArrayList<MyOnTouchListener> onTouchListeners = new ArrayList<MyOnTouchListener>(10);
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

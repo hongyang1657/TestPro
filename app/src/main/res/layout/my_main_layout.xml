@@ -10,20 +10,7 @@
 
     </com.byids.hy.testpro.View.MyCustomViewPager>
 
-    <TextView
-        android:id="@+id/tv_room"
-        android:clickable="true"
-        android:text="客厅"
-        android:textSize="40dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/colorWhite"
-        android:shadowRadius="10"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowColor="#464547"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/iv_music"
         android:layout_margin="16dp"

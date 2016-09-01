@@ -38,13 +38,18 @@
 
     <TextView
         android:id="@+id/tv_blank"
-        android:text="房间名"
-        android:textSize="28sp"
-        android:gravity="bottom"
         android:clickable="true"
+        android:text="客厅"
+        android:textSize="40dp"
+        android:gravity="bottom"
         android:padding="10dp"
+        android:textColor="@color/colorWhite"
+        android:shadowRadius="10"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowColor="#464547"
         android:layout_width="match_parent"
-        android:layout_height="650dp" />
+        android:layout_height="610dp" />
     <LinearLayout
         android:orientation="vertical"
         android:background="#ffffff"
@@ -114,6 +119,7 @@
         <TextView
             android:id="@+id/tv_curtain"
             android:text="窗帘"
+            android:clickable="true"
             android:padding="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
