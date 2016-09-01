@@ -47,7 +47,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private TextView tvLock;
     private TextView tvSecurity;
 
-    int btHeight;
+    int btHeight;     //头部菜单的高度
     private ImageView imageView;
     private MyCustomScrollView scrollView;
     private String btName;
@@ -87,10 +87,10 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         tvLock = (TextView) view.findViewById(R.id.tv_lock);
         tvSecurity = (TextView) view.findViewById(R.id.tv_security);
 
-        tvSet.setOnClickListener(pullDownClick);
+        /*tvSet.setOnClickListener(pullDownClick);
         tvMonitoring.setOnClickListener(pullDownClick);
         tvLock.setOnClickListener(pullDownClick);
-        tvSecurity.setOnClickListener(pullDownClick);
+        tvSecurity.setOnClickListener(pullDownClick);*/
 
         btPullMenu.setOnClickListener(pullMenuListener);
         //上拉菜单   子scrollview
@@ -131,7 +131,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             private void handleStop(Object view) {
                 ScrollView scroller = (ScrollView) view;
                 int mScrollY = scroller.getScrollY();
-                if (mScrollY>((btHeight*3)/2)&&mScrollY<(btHeight*3)){
+                if (mScrollY>((btHeight*3)/2)&&mScrollY<=(btHeight*3)){
                     scrollToBottom();        //滑动到隐藏头
                     pullDown(true);
 
@@ -154,7 +154,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         linearMenu.measure(w, h);
         btHeight = linearMenu.getMeasuredHeight();         //头菜单的高度
-        //Log.i("result", "onCreateView: ----kongjian-----"+btHeight);
+        Log.i("result", "onCreateView: ----kongjian-----"+btHeight);
 
         scrollView = (MyCustomScrollView) view.findViewById(R.id.id_scroll);
         //scrollView.setDownOnConnectionListener(this);
@@ -176,7 +176,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         int statusHeight = getStatusBar();
         params.height = height - statusHeight+500;       //设置图片长度，使上拉时有图片上升的一个效果
         params.width = width;
-        Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
+        //Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
         imageView.setLayoutParams(params);
         svPullUpMenu.setLayoutParams(params);   //设置上拉菜单全屏
 
@@ -236,8 +236,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             scrollY = y;
             //Log.i("result", "onScrollChanged:-----------x-----------"+x+"----------y---------"+y);
 
-
-
             //判断向下滑的时候(y<控件的高度)    button消失
             if (scrollY==(btHeight*3)) {           //乘以三是因为手指移动和滑动是三倍率
                 btPullMenu.setVisibility(View.VISIBLE);
@@ -254,14 +252,14 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                     y = ev.getY();
                     break;
                 case MotionEvent.ACTION_UP:
-                    if (scrollY>((btHeight*3)/2)&&scrollY<(btHeight*3)){
+                    /*if (scrollY>((btHeight*3)/2)&&scrollY<(btHeight*3)){
                         scrollToBottom();        //滑动到隐藏头
                         pullDown(true);
 
                     }else if(scrollY<=((btHeight*3)/2)){
                         scrollToTop();           //滑动到显示头
                         pullDown(false);
-                    }
+                    }*/
                     break;
                 case MotionEvent.ACTION_MOVE:
                     final float preY = y;
@@ -338,7 +336,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         });
     }
 
-    View.OnClickListener pullDownClick = new View.OnClickListener() {
+    //下拉菜单的点击事件
+    /*View.OnClickListener pullDownClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
@@ -356,7 +355,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                     break;
             }
         }
-    };
+    };*/
 
     //两个ScrollView联动
     @Override
@@ -387,8 +386,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        Log.i("result", "onScroll:---------------- "+motionEvent1);
-        Log.i(TAG, "onScroll: =================="+v);
+        //Log.i("result", "onScroll:---------------- "+motionEvent1);
+        //Log.i(TAG, "onScroll: =================="+v);
         return false;
     }
 
@@ -427,7 +426,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     }
 
     public void flingUp() {          //自定义方法：处理向上滑动事件
-        Log.i(TAG, "flingUp: 上滑");
+        //Log.i(TAG, "flingUp: 上滑");
         //scrollToBottom();        //滑动到隐藏头
         pullDown(true);
     }

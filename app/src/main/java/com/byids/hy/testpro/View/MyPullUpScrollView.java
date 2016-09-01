@@ -79,7 +79,7 @@ public class MyPullUpScrollView extends ScrollView{
     //添加滑动阻尼   velocityY/3
     @Override
     public void fling(int velocityY) {
-        super.fling(velocityY/2);
+        super.fling(velocityY/3);
     }
 
     @Override
