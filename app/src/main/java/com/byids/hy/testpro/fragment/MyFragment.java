@@ -17,11 +17,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.byids.hy.testpro.PullDownMenuListener;
 import com.byids.hy.testpro.PullUpMenuListener;
@@ -31,12 +33,15 @@ import com.byids.hy.testpro.View.MyCustomScrollView;
 import com.byids.hy.testpro.View.MyPullUpScrollView;
 import com.byids.hy.testpro.activity.MyMainActivity;
 
+import java.util.Random;
+
 /**
  * Created by hy on 2016/8/15.
  */
 @SuppressLint({"ValidFragment", "NewApi"})
 public class MyFragment extends Fragment implements PullUpMenuListener,GestureDetector.OnGestureListener {
     private String TAG = "result";
+    private View view = null;
     
     private LinearLayout linearMenu;  //下拉菜单
     private TextView tvSet;
@@ -48,8 +53,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int btHeight_X3;  //头部菜单高度的三倍  (因为两个ScrollView的联动为3倍率)
 
     private ImageView ivBackGround;   //背景图片
-    private int[] ivBackList = {R.mipmap.back_1,R.mipmap.back_2,R.mipmap.back_3,R.mipmap.back_4,R.mipmap.back_5,R.mipmap.back_6,
-            R.mipmap.back_7,R.mipmap.back_8,R.mipmap.back_9,R.mipmap.back_10,R.mipmap.back_11,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14};
+
     private MyCustomScrollView scrollView;
     private String btName;
     private String roomName;   //房间名
@@ -67,12 +71,33 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private static final int size = 4;
     private float y;
 
+    //控制部分
+    private TextView tvRoomName;
+    private Button btShezhi;
+    private Button btJiankong;
+    private Button btMensuo;
+    private Button btBufang;
 
-    int back;
-    public MyFragment(String btName, String roomName,int back) {
+    Random random1 = new Random();
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    ivBackGround.setImageResource(backList[random1.nextInt(backList.length)]);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    private int[] backList;  //背景图片组
+    public MyFragment(String btName, String roomName,int[] backList) {
         this.btName = btName;
         this.roomName = roomName;
-        this.back = back;
+        this.backList = backList;
     }
 
 
@@ -80,20 +105,11 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_layout,null);
-        linear = (RelativeLayout) view.findViewById(R.id.linear);
-        linearMenu = (LinearLayout) view.findViewById(R.id.linear_menu);
-        ivBackGround = (ImageView) view.findViewById(R.id.id_iv);
-        ivBackGround.setImageResource(back);
+        view = inflater.inflate(R.layout.fragment_layout,null);
 
-        btPullMenu = (ImageView) view.findViewById(R.id.button);
-        tvSet = (TextView) view.findViewById(R.id.tv_set);
-        tvMonitoring = (TextView) view.findViewById(R.id.tv_monitoring);
-        tvLock = (TextView) view.findViewById(R.id.tv_lock);
-        tvSecurity = (TextView) view.findViewById(R.id.tv_security);
-
+        initView();
         scrollToBottomInit();   //初始化ScrollView的位置
-        initBackGround();   //初始化背景图片
+
 
         btPullMenu.setOnClickListener(pullMenuListener);
         //上拉菜单   子scrollview
@@ -187,8 +203,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
 
         //手势
-        final GestureDetector mGestureDetector = new GestureDetector(
-                getActivity(), this);
+        final GestureDetector mGestureDetector = new GestureDetector(getActivity(), this);
         MyMainActivity.MyOnTouchListener myOnTouchListener = new MyMainActivity.MyOnTouchListener() {
             @Override
             public boolean onTouch(MotionEvent ev) {
@@ -220,11 +235,74 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         super.onActivityCreated(savedInstanceState);
     }
 
-    //初始化背景图片
-    private void initBackGround(){
+    private void initView(){
+        linear = (RelativeLayout) view.findViewById(R.id.linear);
+        linearMenu = (LinearLayout) view.findViewById(R.id.linear_menu);
+        ivBackGround = (ImageView) view.findViewById(R.id.id_iv);
 
+        btPullMenu = (ImageView) view.findViewById(R.id.button);
+        tvSet = (TextView) view.findViewById(R.id.tv_set);
+        tvMonitoring = (TextView) view.findViewById(R.id.tv_monitoring);
+        tvLock = (TextView) view.findViewById(R.id.tv_lock);
+        tvSecurity = (TextView) view.findViewById(R.id.tv_security);
+
+        //控制部分  上
+        tvRoomName = (TextView) view.findViewById(R.id.tv_blank);
+        btShezhi = (Button) view.findViewById(R.id.bt_shezhi);
+        btJiankong = (Button) view.findViewById(R.id.bt_jiankong);
+        btMensuo = (Button) view.findViewById(R.id.bt_mensuo);
+        btBufang = (Button) view.findViewById(R.id.bt_bufang);
+        btShezhi.setOnClickListener(clickListener);
+        btJiankong.setOnClickListener(clickListener);
+        btMensuo.setOnClickListener(clickListener);
+        btBufang.setOnClickListener(clickListener);
+        initBackGround();   //初始化背景图片
     }
 
+    //初始化背景图片
+    private void initBackGround(){
+        //随机取出一张图片
+        Random random = new Random();
+        ivBackGround.setImageResource(backList[random.nextInt(backList.length)]);
+
+        //开线程  隔一段时间切换图片
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(30000);
+                        Message message = new Message();
+                        message.what = 1;
+                        handler.sendMessage(message);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    //头部控件的点击事件
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.bt_shezhi:
+                    Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.bt_jiankong:
+                    Toast.makeText(getActivity(), "监控", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.bt_mensuo:
+                    Toast.makeText(getActivity(), "门锁", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.bt_bufang:
+                    Toast.makeText(getActivity(), "布防", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
     //自定义设置的下拉菜单监听
     public void pullDown(boolean f){

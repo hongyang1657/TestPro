@@ -40,7 +40,10 @@ public class MyMainActivity extends FragmentActivity{
     private ImageView ivMusic;
     private ImageView ivMedia;
 
-
+    //背景图片
+    private int[] ivBackList1 = {R.mipmap.back_10,R.mipmap.back_11,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14};
+    private int[] ivBackList2 = {R.mipmap.back_5,R.mipmap.back_6, R.mipmap.back_7,R.mipmap.back_8,R.mipmap.back_9};
+    private int[] ivBackList3 = {R.mipmap.back_1,R.mipmap.back_2,R.mipmap.back_3,R.mipmap.back_4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +59,13 @@ public class MyMainActivity extends FragmentActivity{
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
 
-        MyFragment myFragment1 = new MyFragment("头1","客厅",R.mipmap.back_7);
+        MyFragment myFragment1 = new MyFragment("头1","客厅",ivBackList1);
         pullMenu(myFragment1);
         viewList.add(myFragment1);
-        MyFragment myFragment2 = new MyFragment("头2","卧室",R.mipmap.back_9);
+        MyFragment myFragment2 = new MyFragment("头2","卧室",ivBackList2);
         pullMenu(myFragment2);
         viewList.add(myFragment2);
-        MyFragment myFragment3 = new MyFragment("头3","书房",R.mipmap.back_10);
+        MyFragment myFragment3 = new MyFragment("头3","书房",ivBackList3);
         pullMenu(myFragment3);
         viewList.add(myFragment3);
 

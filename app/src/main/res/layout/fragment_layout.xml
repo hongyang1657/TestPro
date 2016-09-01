@@ -90,13 +90,182 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <fragment
+            <!--<fragment
                 android:id="@+id/fragment"
                 android:name="com.byids.hy.testpro.fragment.ControllerFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/controller_fragment_layout" />
+                tools:layout="@layout/controller_fragment_layout" />-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
 
+                <Button
+                    android:id="@+id/bt_shezhi"
+                    android:background="#00000000"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/bt_jiankong"
+                    android:background="#00000000"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/bt_mensuo"
+                    android:background="#00000000"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/bt_bufang"
+                    android:background="#00000000"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_blank"
+                android:clickable="true"
+                android:text="客厅"
+                android:textSize="40dp"
+                android:gravity="bottom"
+                android:padding="10dp"
+                android:textColor="@color/colorWhite"
+                android:shadowRadius="10"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowColor="#464547"
+                android:layout_width="match_parent"
+                android:layout_height="610dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_scene"
+                    android:text="场景"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RadioGroup
+                    android:id="@+id/rg_scene"
+                    android:weightSum="4"
+                    android:padding="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rb_xiuxian"
+                        android:layout_weight="1"
+                        android:text="休闲"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_yule"
+                        android:layout_weight="1"
+                        android:text="娱乐"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_juhui"
+                        android:layout_weight="1"
+                        android:text="聚会"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_likai"
+                        android:layout_weight="1"
+                        android:text="离开"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_curtain"
+                    android:text="窗帘"
+                    android:clickable="true"
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RadioGroup
+                    android:id="@+id/rg_curtain"
+                    android:weightSum="4"
+                    android:padding="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/rb_curtain1_switch"
+                        android:layout_weight="1"
+                        android:text="左窗帘 关"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_curtain2_switch"
+                        android:layout_weight="1"
+                        android:text="右窗帘 关"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_curtain_all"
+                        android:layout_weight="1"
+                        android:text="全关"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/rb_curtain_stop"
+                        android:layout_weight="1"
+                        android:text="停止"
+                        android:button="@null"
+                        android:drawableTop="@mipmap/ic_launcher"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+            </LinearLayout>
+            <TextView
+                android:text="1111"
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="600dp" />
 
         </LinearLayout>
     </com.byids.hy.testpro.View.MyPullUpScrollView>
