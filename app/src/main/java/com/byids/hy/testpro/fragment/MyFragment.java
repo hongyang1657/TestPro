@@ -87,9 +87,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-                    ivBackGround.setImageResource(backList[random1.nextInt(backList.length)]);
-                    ivBackGroundTrans.setImageResource(backList[random1.nextInt(backList.length)]);
                     setBGPAnimation();
+                    Log.i(TAG, "handleMessage: 111111111111111111111111");
                     break;
                 default:
                     break;
@@ -278,7 +277,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             public void run() {
                 while (true){
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(30000);
                         Message message = new Message();
                         message.what = 1;
                         handler.sendMessage(message);
@@ -291,9 +290,27 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     }
 
     //设置切换图片的动画
+    private int BGPFlag = 0;
     private void setBGPAnimation(){
-        ObjectAnimator.ofFloat(ivBackGround,"alpha",1f,0f).setDuration(1000).start();
-        ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",0f,1f).setDuration(1000).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+
+        if (BGPFlag==0){
+            ObjectAnimator animator1 = new ObjectAnimator().ofFloat(ivBackGround,"alpha",1f,0f).setDuration(1000);
+            animator1.start();
+
+            ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",0f,1f).setDuration(1000).start();
+
+            BGPFlag = 1;
+        }else if (BGPFlag==1){
+            ObjectAnimator.ofFloat(ivBackGround,"alpha",0f,1f).setDuration(1000).start();
+            ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",1f,0f).setDuration(1000).start();
+            BGPFlag = 0;
+        }
     }
 
     //头部控件的点击事件
