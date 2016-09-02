@@ -1,5 +1,6 @@
 package com.byids.hy.testpro.fragment;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -53,6 +54,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int btHeight_X3;  //头部菜单高度的三倍  (因为两个ScrollView的联动为3倍率)
 
     private ImageView ivBackGround;   //背景图片
+    private ImageView ivBackGroundTrans;      //切换背景图片
 
     private MyCustomScrollView scrollView;
     private String btName;
@@ -86,6 +88,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             switch (msg.what){
                 case 1:
                     ivBackGround.setImageResource(backList[random1.nextInt(backList.length)]);
+                    ivBackGroundTrans.setImageResource(backList[random1.nextInt(backList.length)]);
+                    setBGPAnimation();
                     break;
                 default:
                     break;
@@ -199,6 +203,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         params.width = width;
         //Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
         ivBackGround.setLayoutParams(params);
+        ivBackGroundTrans.setLayoutParams(params);
         svPullUpMenu.setLayoutParams(params);   //设置上拉菜单全屏
 
 
@@ -239,6 +244,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linear = (RelativeLayout) view.findViewById(R.id.linear);
         linearMenu = (LinearLayout) view.findViewById(R.id.linear_menu);
         ivBackGround = (ImageView) view.findViewById(R.id.id_iv);
+        ivBackGroundTrans = (ImageView) view.findViewById(R.id.id_iv1);
 
         btPullMenu = (ImageView) view.findViewById(R.id.button);
         tvSet = (TextView) view.findViewById(R.id.tv_set);
@@ -264,6 +270,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         //随机取出一张图片
         Random random = new Random();
         ivBackGround.setImageResource(backList[random.nextInt(backList.length)]);
+        ivBackGroundTrans.setImageResource(backList[random.nextInt(backList.length)]);
 
         //开线程  隔一段时间切换图片
         new Thread(new Runnable() {
@@ -271,7 +278,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             public void run() {
                 while (true){
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(5000);
                         Message message = new Message();
                         message.what = 1;
                         handler.sendMessage(message);
@@ -283,6 +290,12 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         }).start();
     }
 
+    //设置切换图片的动画
+    private void setBGPAnimation(){
+        ObjectAnimator.ofFloat(ivBackGround,"alpha",1f,0f).setDuration(1000).start();
+        ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",0f,1f).setDuration(1000).start();
+    }
+
     //头部控件的点击事件
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -290,6 +303,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             switch (view.getId()){
                 case R.id.bt_shezhi:
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
+                    setBGPAnimation();
                     break;
                 case R.id.bt_jiankong:
                     Toast.makeText(getActivity(), "监控", Toast.LENGTH_SHORT).show();

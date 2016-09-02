@@ -68,12 +68,20 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <ImageView
+                android:id="@+id/id_iv1"
+                android:layout_below="@id/linear_menu"
+                android:src="@mipmap/back_4"
+                android:scaleType="centerCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
                 android:id="@+id/id_iv"
                 android:layout_below="@id/linear_menu"
                 android:src="@mipmap/back_5"
                 android:scaleType="centerCrop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
 
 
 
