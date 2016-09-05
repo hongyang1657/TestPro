@@ -150,125 +150,50 @@
                 android:shadowColor="#464547"
                 android:layout_width="match_parent"
                 android:layout_height="610dp" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:background="#ffffff"
+
+            <TextView
+                android:id="@+id/tv_scene"
+                android:background="@color/colorWhite"
+                android:text="场景"
+                android:textSize="18sp"
+                android:clickable="true"
+                android:padding="6dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
+            <include layout="@layout/scene_layout"/>
 
-                <TextView
-                    android:id="@+id/tv_scene"
-                    android:text="场景"
-                    android:clickable="true"
-                    android:padding="4dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <RadioGroup
-                    android:id="@+id/rg_scene"
-                    android:weightSum="4"
-                    android:padding="8dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/rb_xiuxian"
-                        android:layout_weight="1"
-                        android:text="休闲"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_yule"
-                        android:layout_weight="1"
-                        android:text="娱乐"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_juhui"
-                        android:layout_weight="1"
-                        android:text="聚会"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_likai"
-                        android:layout_weight="1"
-                        android:text="离开"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <LinearLayout
-                android:background="#ffffff"
-                android:orientation="vertical"
+            <TextView
+                android:id="@+id/tv_curtain"
+                android:text="窗帘"
+                android:textSize="18sp"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:padding="6dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
+            <include layout="@layout/curtain_layout"/>
+            <TextView
+                android:id="@+id/tv_air_condition"
+                android:text="空调"
+                android:textSize="18sp"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/air_condition_layout"/>
 
-                <TextView
-                    android:id="@+id/tv_curtain"
-                    android:text="窗帘"
-                    android:clickable="true"
-                    android:padding="4dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <RadioGroup
-                    android:id="@+id/rg_curtain"
-                    android:weightSum="4"
-                    android:padding="8dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_light"
+                android:text="灯光"
+                android:textSize="18sp"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/light_layout"/>
 
-                    <RadioButton
-                        android:id="@+id/rb_curtain1_switch"
-                        android:layout_weight="1"
-                        android:text="左窗帘 关"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_curtain2_switch"
-                        android:layout_weight="1"
-                        android:text="右窗帘 关"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_curtain_all"
-                        android:layout_weight="1"
-                        android:text="全关"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <RadioButton
-                        android:id="@+id/rb_curtain_stop"
-                        android:layout_weight="1"
-                        android:text="停止"
-                        android:button="@null"
-                        android:drawableTop="@mipmap/ic_launcher"
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </RadioGroup>
-            </LinearLayout>
             <TextView
                 android:text="1111"
                 android:background="#ffffff"

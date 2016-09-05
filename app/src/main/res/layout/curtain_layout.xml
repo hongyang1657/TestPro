@@ -1,58 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:weightSum="4"
+    android:background="@color/colorWhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_curtain"
-        android:text="窗帘"
-        android:padding="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <RadioGroup
-        android:id="@+id/rg_curtain"
-        android:weightSum="4"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+<!--布帘-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_bulian_head"
+            android:src="@mipmap/theme2_chuanglian_head_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_chuanglian_bulian1"
+            android:src="@mipmap/theme2_chuanglian_solidline_3x"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <RadioButton
-            android:id="@+id/rb_curtain1_switch"
-            android:layout_weight="1"
-            android:text="左窗帘 关"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+        <TextView
+            android:id="@+id/tv_curtain_left"
+            android:text="布帘 关"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_bulian_head"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_curtain2_switch"
-            android:layout_weight="1"
-            android:text="右窗帘 关"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+    </RelativeLayout>
+
+<!--纱帘-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_shalian_head"
+            android:src="@mipmap/theme2_chuanglian_head_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_shalian"
+            android:src="@mipmap/theme2_chuanglian_viualline_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_shalian"
+            android:text="纱帘 关"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_shalian_head"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_curtain_all"
-            android:layout_weight="1"
-            android:text="全关"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+    </RelativeLayout>
+
+
+<!--全关-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_chuanglian_all"
+            android:src="@mipmap/theme2_chuanglian_quanguan_close_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_juhui"
+            android:text="全 关"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_chuanglian_all"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_curtain_stop"
-            android:layout_weight="1"
-            android:text="停止"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+    </RelativeLayout>
+
+<!--停止-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_chuanglian_stop"
+            android:src="@mipmap/theme2_chuanglian_zanting_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_chuanglian_stop"
+            android:text="停 止"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_chuanglian_stop"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </RadioGroup>
+    </RelativeLayout>
+
+
 </LinearLayout>

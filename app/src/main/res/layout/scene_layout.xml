@@ -1,58 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:background="@color/colorWhite"
+    android:weightSum="4"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_scene"
-        android:text="场景"
-        android:padding="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <RadioGroup
-        android:id="@+id/rg_scene"
-        android:weightSum="4"
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+<!--休闲-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_xiuxian_out"
+            android:src="@mipmap/theme2_jiating_xiuxian_ani_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_xiuxian_in"
+            android:src="@mipmap/theme2_jiating_xiuxian_ani_in_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_xiuxian"
+            android:text="休 闲"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_xiuxian_out"
+            android:layout_alignLeft="@id/iv_xiuxian_out"
+            android:layout_alignRight="@id/iv_xiuxian_out"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-        <RadioButton
-            android:id="@+id/rb_xiuxian"
-            android:layout_weight="1"
-            android:text="休闲"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+<!--娱乐-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_yule_1"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_yule_1_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_yule_2"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_yule_2_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_yule_3"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_yule_3_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_yule"
+            android:text="娱 乐"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_yule_1"
+            android:layout_alignLeft="@id/iv_yule_1"
+            android:layout_alignRight="@id/iv_yule_1"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_yule"
-            android:layout_weight="1"
-            android:text="娱乐"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+    </RelativeLayout>
+
+
+<!--聚会-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_juhui_1"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_juhui_ani_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_juhui_2"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_juhui_ani_in_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_juhui"
+            android:text="聚 会"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_juhui_2"
+            android:layout_alignLeft="@id/iv_juhui_1"
+            android:layout_alignRight="@id/iv_juhui_1"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_juhui"
-            android:layout_weight="1"
-            android:text="聚会"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
+    </RelativeLayout>
+
+<!--离开-->
+    <RelativeLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_likai"
+            android:layout_below="@id/tv_scene"
+            android:src="@mipmap/theme2_jiating_likai_ani_3x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_likai"
+            android:text="离 开"
+            android:paddingTop="4dp"
+            android:layout_below="@id/iv_likai"
+            android:layout_alignLeft="@id/iv_likai"
+            android:layout_alignRight="@id/iv_likai"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RadioButton
-            android:id="@+id/rb_likai"
-            android:layout_weight="1"
-            android:text="离开"
-            android:button="@null"
-            android:drawableTop="@mipmap/ic_launcher"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RadioGroup>
+    </RelativeLayout>
+
+
 </LinearLayout>

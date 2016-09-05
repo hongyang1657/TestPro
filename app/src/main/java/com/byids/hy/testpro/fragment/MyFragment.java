@@ -1,5 +1,7 @@
 package com.byids.hy.testpro.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -198,7 +200,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         int height = wm.getDefaultDisplay().getHeight();
         ViewGroup.LayoutParams params = ivBackGround.getLayoutParams();
         int statusHeight = getStatusBar();
-        params.height = height - statusHeight+500;       //设置图片长度，使上拉时有图片上升的一个效果
+        params.height = height - statusHeight+1000;       //设置图片长度，使上拉时有图片上升的一个效果
         params.width = width;
         //Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
         ivBackGround.setLayoutParams(params);
@@ -277,7 +279,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             public void run() {
                 while (true){
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(8000);
                         Message message = new Message();
                         message.what = 1;
                         handler.sendMessage(message);
@@ -292,15 +294,16 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     //设置切换图片的动画
     private int BGPFlag = 0;
     private void setBGPAnimation(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
 
         if (BGPFlag==0){
             ObjectAnimator animator1 = new ObjectAnimator().ofFloat(ivBackGround,"alpha",1f,0f).setDuration(1000);
+            animator1.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {          //动画结束的监听
+                    super.onAnimationEnd(animation);
+                    ivBackGround.setImageResource(backList[random1.nextInt(backList.length)]);
+                }
+            });
             animator1.start();
 
             ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",0f,1f).setDuration(1000).start();
@@ -308,7 +311,15 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             BGPFlag = 1;
         }else if (BGPFlag==1){
             ObjectAnimator.ofFloat(ivBackGround,"alpha",0f,1f).setDuration(1000).start();
-            ObjectAnimator.ofFloat(ivBackGroundTrans,"alpha",1f,0f).setDuration(1000).start();
+            ObjectAnimator animator2 = new ObjectAnimator().ofFloat(ivBackGroundTrans,"alpha",1f,0f).setDuration(1000);
+            animator2.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {          //动画结束的监听
+                    super.onAnimationEnd(animation);
+                    ivBackGroundTrans.setImageResource(backList[random1.nextInt(backList.length)]);
+                }
+            });
+            animator2.start();
             BGPFlag = 0;
         }
     }
@@ -320,7 +331,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             switch (view.getId()){
                 case R.id.bt_shezhi:
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
-                    setBGPAnimation();
                     break;
                 case R.id.bt_jiankong:
                     Toast.makeText(getActivity(), "监控", Toast.LENGTH_SHORT).show();
