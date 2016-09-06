@@ -2,12 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:background="@color/colorWhite"
+    android:padding="4dp"
     android:weightSum="4"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 <!--休闲-->
     <RelativeLayout
+        android:id="@+id/rl_xiuxian"
+        android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -26,9 +29,9 @@
             android:id="@+id/tv_xiuxian"
             android:text="休 闲"
             android:paddingTop="4dp"
+            android:layout_alignRight="@id/iv_xiuxian_in"
+            android:layout_alignLeft="@id/iv_xiuxian_in"
             android:layout_below="@id/iv_xiuxian_out"
-            android:layout_alignLeft="@id/iv_xiuxian_out"
-            android:layout_alignRight="@id/iv_xiuxian_out"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -36,6 +39,8 @@
 
 <!--娱乐-->
     <RelativeLayout
+        android:id="@+id/rl_yule"
+        android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -62,9 +67,9 @@
             android:id="@+id/tv_yule"
             android:text="娱 乐"
             android:paddingTop="4dp"
+            android:layout_alignRight="@id/iv_yule_3"
+            android:layout_alignLeft="@id/iv_yule_3"
             android:layout_below="@id/iv_yule_1"
-            android:layout_alignLeft="@id/iv_yule_1"
-            android:layout_alignRight="@id/iv_yule_1"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -73,6 +78,8 @@
 
 <!--聚会-->
     <RelativeLayout
+        android:id="@+id/rl_juhui"
+        android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -93,9 +100,9 @@
             android:id="@+id/tv_juhui"
             android:text="聚 会"
             android:paddingTop="4dp"
+            android:layout_alignRight="@id/iv_juhui_2"
+            android:layout_alignLeft="@id/iv_juhui_2"
             android:layout_below="@id/iv_juhui_2"
-            android:layout_alignLeft="@id/iv_juhui_1"
-            android:layout_alignRight="@id/iv_juhui_1"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -103,6 +110,8 @@
 
 <!--离开-->
     <RelativeLayout
+        android:id="@+id/rl_likai"
+        android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -117,9 +126,9 @@
             android:id="@+id/tv_likai"
             android:text="离 开"
             android:paddingTop="4dp"
-            android:layout_below="@id/iv_likai"
-            android:layout_alignLeft="@id/iv_likai"
             android:layout_alignRight="@id/iv_likai"
+            android:layout_alignLeft="@id/iv_likai"
+            android:layout_below="@id/iv_likai"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

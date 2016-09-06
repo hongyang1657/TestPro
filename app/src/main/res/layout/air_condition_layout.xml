@@ -4,11 +4,14 @@
     android:background="@color/colorWhite"
     android:layout_weight="10"
     android:gravity="center_horizontal"
+    android:padding="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <!--空调开关-->
     <RelativeLayout
+        android:id="@+id/rl_kongtiao_kaiguan"
+        android:clickable="true"
         android:layout_weight="3"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -29,8 +32,10 @@
     </RelativeLayout>
    <!--空调温度-->
     <TextView
+        android:id="@+id/tv_kongtiao_wendu"
+        android:clickable="true"
         android:layout_weight="4"
-        android:text="18°"
+    android:text="18°"
         android:textSize="30sp"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -38,6 +43,8 @@
 
     <!--睡眠-->
     <RelativeLayout
+        android:id="@+id/rl_kongtiao_moshi"
+        android:clickable="true"
         android:layout_weight="3"
         android:gravity="center"
         android:layout_width="wrap_content"

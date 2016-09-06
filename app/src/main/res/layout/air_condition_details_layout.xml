@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_air_details"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:padding="4dp"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="温度"
+            android:textSize="20sp"
+            android:clickable="true"
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <SeekBar
+            android:id="@+id/sb_air_temp"
+            android:thumb="@mipmap/ic_launcher"
+            android:max="100"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_air_control_1"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_zhileng"
+                android:src="@mipmap/zhileng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_air_control_1"
+                android:text="制 冷"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:layout_alignLeft="@id/iv_zhileng"
+                android:layout_alignRight="@id/iv_zhileng"
+                android:layout_below="@id/iv_zhileng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_air_control_2"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_fengsu_0"
+                android:src="@mipmap/air_speed_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_fengsu_1"
+                android:src="@mipmap/air_speed_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_fengsu_2"
+                android:src="@mipmap/air_speed_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_fengsu_3"
+                android:src="@mipmap/air_speed_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_air_control_2"
+                android:text="高 速"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:layout_alignLeft="@id/iv_fengsu_3"
+                android:layout_alignRight="@id/iv_fengsu_3"
+                android:layout_below="@id/iv_fengsu_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_air_control_3"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_dingshi"
+                android:src="@mipmap/theme2_kongtiao_dingshi_3x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_air_control_3"
+                android:text="定 时"
+                android:paddingTop="4dp"
+                android:gravity="center"
+                android:layout_alignLeft="@id/iv_dingshi"
+                android:layout_alignRight="@id/iv_dingshi"
+                android:layout_below="@id/iv_dingshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

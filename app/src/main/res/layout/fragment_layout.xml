@@ -157,31 +157,10 @@
                 android:text="场景"
                 android:textSize="18sp"
                 android:clickable="true"
-                android:padding="6dp"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <include layout="@layout/scene_layout"/>
-
-            <TextView
-                android:id="@+id/tv_curtain"
-                android:text="窗帘"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
-                android:clickable="true"
-                android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <include layout="@layout/curtain_layout"/>
-            <TextView
-                android:id="@+id/tv_air_condition"
-                android:text="空调"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
-                android:clickable="true"
-                android:padding="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <include layout="@layout/air_condition_layout"/>
 
             <TextView
                 android:id="@+id/tv_light"
@@ -189,16 +168,39 @@
                 android:textSize="18sp"
                 android:background="@color/colorWhite"
                 android:clickable="true"
-                android:padding="6dp"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <include layout="@layout/light_layout"/>
 
             <TextView
-                android:text="1111"
-                android:background="#ffffff"
+                android:id="@+id/tv_curtain"
+                android:text="窗帘"
+                android:textSize="18sp"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="600dp" />
+                android:layout_height="wrap_content" />
+            <include layout="@layout/curtain_layout"/>
+
+            <TextView
+                android:id="@+id/tv_air_condition"
+                android:text="空调"
+                android:textSize="18sp"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/air_condition_layout"/>
+            <include layout="@layout/air_condition_details_layout" />
+
+
+            <TextView
+                android:background="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
 
         </LinearLayout>
     </com.byids.hy.testpro.View.MyPullUpScrollView>
