@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@color/colorWhite"
+    android:background="@mipmap/mohu"
     android:layout_weight="10"
     android:gravity="center_horizontal"
     android:padding="4dp"
@@ -14,20 +14,22 @@
         android:clickable="true"
         android:layout_weight="3"
         android:gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_kongtiao_kaiguan"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_kongtiao_fan_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_kongtiao_kaiguan"
             android:text="空调 关"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_below="@id/iv_kongtiao_kaiguan"
             android:gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
    <!--空调温度-->
@@ -35,7 +37,8 @@
         android:id="@+id/tv_kongtiao_wendu"
         android:clickable="true"
         android:layout_weight="4"
-    android:text="18°"
+        android:text="18°"
+        android:textColor="@color/colorText"
         android:textSize="30sp"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -47,20 +50,22 @@
         android:clickable="true"
         android:layout_weight="3"
         android:gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_kongtiao_sleep"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_kongtiao_sleep_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_kongtiao_sleep"
             android:text="睡眠 关"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_below="@id/iv_kongtiao_sleep"
             android:gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>

@@ -8,5 +8,5 @@ import com.byids.hy.testpro.View.MyPullUpScrollView;
  */
 public interface PullUpMenuListener {
     void onScrollConnection(MyPullUpScrollView scrollView, int x, int y, int oldx, int oldy);
-    //void onScrollConnectionDown(MyCustomScrollView scrollView, int x, int y, int oldx, int oldy);
+    void onScrollConnectionDown(MyCustomScrollView scrollView, int x, int y, int oldx, int oldy);
 }

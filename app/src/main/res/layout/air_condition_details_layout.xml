@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/linear_air_details"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
-    android:padding="4dp"
+    android:background="@mipmap/mohu"
     android:visibility="gone"
+    android:padding="4dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,7 +17,7 @@
 
         <TextView
             android:text="温度"
-            android:textSize="20sp"
+            android:textColor="@color/colorText"
             android:clickable="true"
             android:padding="16dp"
             android:layout_width="wrap_content"
@@ -51,6 +52,7 @@
             <TextView
                 android:id="@+id/tv_air_control_1"
                 android:text="制 冷"
+                android:textColor="@color/colorText"
                 android:paddingTop="4dp"
                 android:gravity="center"
                 android:layout_alignLeft="@id/iv_zhileng"
@@ -91,6 +93,7 @@
             <TextView
                 android:id="@+id/tv_air_control_2"
                 android:text="高 速"
+                android:textColor="@color/colorText"
                 android:paddingTop="4dp"
                 android:gravity="center"
                 android:layout_alignLeft="@id/iv_fengsu_3"
@@ -116,6 +119,7 @@
             <TextView
                 android:id="@+id/tv_air_control_3"
                 android:text="定 时"
+                android:textColor="@color/colorText"
                 android:paddingTop="4dp"
                 android:gravity="center"
                 android:layout_alignLeft="@id/iv_dingshi"

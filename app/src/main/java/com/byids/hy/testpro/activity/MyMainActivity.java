@@ -10,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class MyMainActivity extends FragmentActivity{
     private MyFragmentAdapter adapter;
     private List<Fragment> viewList = new ArrayList<Fragment>();
     private GestureDetector gestureDetector;
+    private boolean b1 = true;       //下拉菜单隐藏为true，出现为false
 
     //几个控件
     private TextView tvRoom;//房间名
@@ -41,14 +43,15 @@ public class MyMainActivity extends FragmentActivity{
     private ImageView ivMedia;
 
     //背景图片
-    private int[] ivBackList1 = {R.mipmap.back_10,R.mipmap.back_11,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14};
-    private int[] ivBackList2 = {R.mipmap.back_5,R.mipmap.back_6, R.mipmap.back_7,R.mipmap.back_8,R.mipmap.back_9};
+    private int[] ivBackList1 = {R.mipmap.back_10,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14};
+    private int[] ivBackList2 = {R.mipmap.back_5,R.mipmap.back_6,R.mipmap.back_8,R.mipmap.back_9};
     private int[] ivBackList3 = {R.mipmap.back_1,R.mipmap.back_2,R.mipmap.back_3,R.mipmap.back_4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.my_main_layout);
         initView();
     }
@@ -59,13 +62,13 @@ public class MyMainActivity extends FragmentActivity{
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
 
-        MyFragment myFragment1 = new MyFragment("头1","客厅",ivBackList1);
+        MyFragment myFragment1 = new MyFragment(0,"客厅",ivBackList1);
         pullMenu(myFragment1);
         viewList.add(myFragment1);
-        MyFragment myFragment2 = new MyFragment("头2","卧室",ivBackList2);
+        MyFragment myFragment2 = new MyFragment(1,"卧室",ivBackList2);
         pullMenu(myFragment2);
         viewList.add(myFragment2);
-        MyFragment myFragment3 = new MyFragment("头3","书房",ivBackList3);
+        MyFragment myFragment3 = new MyFragment(2,"书房",ivBackList3);
         pullMenu(myFragment3);
         viewList.add(myFragment3);
 
@@ -79,11 +82,13 @@ public class MyMainActivity extends FragmentActivity{
 
     }
 
+
     private void pullMenu(MyFragment myF){
         //自定义的下拉监听
         myF.setPullDownMenuListener(new PullDownMenuListener() {
             @Override
             public void pullDown(boolean b) {
+                b1 = b;
                 if (b==false){      //下拉菜单出现时
                     //隐藏桌面小控件
                     ivMusic.setVisibility(View.GONE);
@@ -152,9 +157,15 @@ public class MyMainActivity extends FragmentActivity{
     }
     //滑动结束后，控件显现
     private void downScrollViewPager(String roomName){
-        showAnimation();
-        ivMusic.setVisibility(View.VISIBLE);
-        ivMedia.setVisibility(View.VISIBLE);
+        if (b1==false){
+            ivMusic.setVisibility(View.GONE);
+            ivMedia.setVisibility(View.GONE);
+        }else if (b1==true){
+            showAnimation();
+            ivMusic.setVisibility(View.VISIBLE);
+            ivMedia.setVisibility(View.VISIBLE);
+        }
+
     }
     //控件滑出显示的动画
     private void showAnimation(){

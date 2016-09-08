@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@color/colorWhite"
+    android:background="@mipmap/mohu"
     android:padding="4dp"
     android:weightSum="4"
     android:layout_width="match_parent"
@@ -28,6 +28,7 @@
         <TextView
             android:id="@+id/tv_xiuxian"
             android:text="休 闲"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_alignRight="@id/iv_xiuxian_in"
             android:layout_alignLeft="@id/iv_xiuxian_in"
@@ -66,6 +67,7 @@
         <TextView
             android:id="@+id/tv_yule"
             android:text="娱 乐"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_alignRight="@id/iv_yule_3"
             android:layout_alignLeft="@id/iv_yule_3"
@@ -99,6 +101,7 @@
         <TextView
             android:id="@+id/tv_juhui"
             android:text="聚 会"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_alignRight="@id/iv_juhui_2"
             android:layout_alignLeft="@id/iv_juhui_2"
@@ -125,6 +128,7 @@
         <TextView
             android:id="@+id/tv_likai"
             android:text="离 开"
+            android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:layout_alignRight="@id/iv_likai"
             android:layout_alignLeft="@id/iv_likai"

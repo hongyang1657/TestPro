@@ -6,6 +6,7 @@
 
     <com.byids.hy.testpro.View.MyCustomScrollView
         android:clickable="false"
+        android:scrollbars="none"
         android:id="@+id/id_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +27,7 @@
                     android:id="@+id/tv_set"
                     android:clickable="true"
                     android:text="设置"
+                    android:textColor="@color/colorText"
                     android:layout_weight="1"
                     android:drawablePadding="6dp"
                     android:padding="10dp"
@@ -37,6 +39,7 @@
                     android:id="@+id/tv_monitoring"
                     android:clickable="true"
                     android:text="监控"
+                    android:textColor="@color/colorText"
                     android:layout_weight="1"
                     android:drawablePadding="6dp"
                     android:padding="10dp"
@@ -48,6 +51,7 @@
                     android:id="@+id/tv_lock"
                     android:clickable="true"
                     android:text="门锁"
+                    android:textColor="@color/colorText"
                     android:layout_weight="1"
                     android:drawablePadding="6dp"
                     android:padding="10dp"
@@ -59,6 +63,7 @@
                     android:id="@+id/tv_security"
                     android:clickable="true"
                     android:text="布防"
+                    android:textColor="@color/colorText"
                     android:layout_weight="1"
                     android:drawablePadding="6dp"
                     android:padding="10dp"
@@ -90,6 +95,7 @@
 
     <com.byids.hy.testpro.View.MyPullUpScrollView
         android:id="@+id/scroll_pull_up"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -105,10 +111,11 @@
                 android:layout_height="wrap_content"
                 tools:layout="@layout/controller_fragment_layout" />-->
             <LinearLayout
+                android:id="@+id/linear_up_menu_click"
                 android:orientation="horizontal"
                 android:weightSum="4"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="82dp">
 
                 <Button
                     android:id="@+id/bt_shezhi"
@@ -149,13 +156,13 @@
                 android:shadowDy="0"
                 android:shadowColor="#464547"
                 android:layout_width="match_parent"
-                android:layout_height="610dp" />
+                android:layout_height="650dp" />
 
             <TextView
                 android:id="@+id/tv_scene"
-                android:background="@color/colorWhite"
-                android:text="场景"
-                android:textSize="18sp"
+                android:background="@mipmap/mohu"
+                android:text="场 景"
+                android:textColor="@color/colorText"
                 android:clickable="true"
                 android:padding="10dp"
                 android:layout_width="match_parent"
@@ -165,8 +172,8 @@
             <TextView
                 android:id="@+id/tv_light"
                 android:text="灯光"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
+                android:textColor="@color/colorText"
+                android:background="@mipmap/mohu"
                 android:clickable="true"
                 android:padding="10dp"
                 android:layout_width="match_parent"
@@ -176,8 +183,8 @@
             <TextView
                 android:id="@+id/tv_curtain"
                 android:text="窗帘"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
+                android:textColor="@color/colorText"
+                android:background="@mipmap/mohu"
                 android:clickable="true"
                 android:padding="10dp"
                 android:layout_width="match_parent"
@@ -187,8 +194,8 @@
             <TextView
                 android:id="@+id/tv_air_condition"
                 android:text="空调"
-                android:textSize="18sp"
-                android:background="@color/colorWhite"
+                android:textColor="@color/colorText"
+                android:background="@mipmap/mohu"
                 android:clickable="true"
                 android:padding="10dp"
                 android:layout_width="match_parent"
@@ -196,11 +203,6 @@
             <include layout="@layout/air_condition_layout"/>
             <include layout="@layout/air_condition_details_layout" />
 
-
-            <TextView
-                android:background="@color/colorWhite"
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
 
         </LinearLayout>
     </com.byids.hy.testpro.View.MyPullUpScrollView>
