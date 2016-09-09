@@ -187,6 +187,14 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             }
         }
     };
+    private Handler handlerAir = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            linearAirDetails.setVisibility(View.GONE);
+        }
+    };
+
 
     private int[] backList;  //背景图片组
     public MyFragment(int roomIndex, String roomName,int[] backList) {
@@ -203,7 +211,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         view = inflater.inflate(R.layout.fragment_layout,null);
 
         initView();
-        scrollToBottomInit();   //初始化ScrollView的位置
 
 
         btPullMenu.setOnClickListener(pullMenuListener);
@@ -258,7 +265,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 }
             }
         });
-
         /*svPullUpMenu.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
@@ -283,9 +289,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 return false;
             }
         });*/
-
-
-
         //获取屏幕宽高，设置图片大小一致
         WindowManager wm = this.getActivity().getWindowManager();
         int width = wm.getDefaultDisplay().getWidth();
@@ -304,6 +307,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         layoutParams.height = btHeight;
         linearClick.setLayoutParams(layoutParams);
 
+        scrollToBottomInit();   //初始化ScrollView的位置
 
         //手势
         final GestureDetector mGestureDetector = new GestureDetector(getActivity(), this);
@@ -378,7 +382,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
          rlJuhui = (RelativeLayout) view.findViewById(R.id.rl_juhui);
          rlLikai = (RelativeLayout) view.findViewById(R.id.rl_likai);
         //灯光
-         hsLightValue = (HorizontalScrollView) view.findViewById(R.id.hs_light_point);
          rlLight = (RelativeLayout) view.findViewById(R.id.relative_light_switch);
         //窗帘
          rlBulian = (RelativeLayout) view.findViewById(R.id.rl_bulian);
@@ -387,7 +390,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
          rlStop = (RelativeLayout) view.findViewById(R.id.rl_tingzhi);
         //空调
          rlKongtiao = (RelativeLayout) view.findViewById(R.id.rl_kongtiao_kaiguan);
-         tvKongtiaoTemp = (TextView) view.findViewById(R.id.tv_kongtiao_wendu);
          rlKongtiaoMoshi = (RelativeLayout) view.findViewById(R.id.rl_kongtiao_moshi);
         linearAirDetails = (LinearLayout) view.findViewById(R.id.linear_air_details);
          sbTemp = (SeekBar) view.findViewById(R.id.sb_air_temp);
@@ -463,78 +465,54 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         rlAirControl2.setOnClickListener(controlListener);
         rlAirControl3.setOnClickListener(controlListener);
 
+        sbTemp.setOnSeekBarChangeListener(tempSeekBarListener);  //空调调温SeekBar
+        hsLightValue.setOnScrollChangeListener(hsChangeListener);
+
     }
 
-    int airFlag = 0;
+    //--------------------------------------点击事件-------------------------------------------
     View.OnClickListener controlListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.rl_xiuxian:
                     setScaleAnimation(rlXiuxian);
-                    Toast.makeText(activity, "休闲", Toast.LENGTH_SHORT).show();
+                    clickXiuxian();
                     break;
                 case R.id.rl_yule:
                     setScaleAnimation(rlYule);
-                    Toast.makeText(activity, "娱乐", Toast.LENGTH_SHORT).show();
+                    clickYule();
                     break;
                 case R.id.rl_juhui:
                     setScaleAnimation(rlJuhui);
-                    Toast.makeText(activity, "聚会", Toast.LENGTH_SHORT).show();
+                    clickJuhui();
                     break;
                 case R.id.rl_likai:
                     setScaleAnimation(rlLikai);
-                    Toast.makeText(activity, "离开", Toast.LENGTH_SHORT).show();
+                    clickLikai();
                     break;
                 case R.id.relative_light_switch:
                     setScaleAnimation(rlLight);
-                    Toast.makeText(activity, "灯 开关", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.rl_bulian:
                     setScaleAnimation(rlBulian);
-                    Toast.makeText(activity, "布帘", Toast.LENGTH_SHORT).show();
+                    clickBulian();
                     break;
                 case R.id.rl_shalian:
                     setScaleAnimation(rlShalian);
-                    Toast.makeText(activity, "纱帘", Toast.LENGTH_SHORT).show();
+                    clickShalian();
                     break;
                 case R.id.rl_quanguan:
                     setScaleAnimation(rlAll);
-                    Toast.makeText(activity, "全关", Toast.LENGTH_SHORT).show();
+                    clickAll();
                     break;
                 case R.id.rl_tingzhi:
                     setScaleAnimation(rlStop);
-                    Toast.makeText(activity, "停止", Toast.LENGTH_SHORT).show();
+                    clickStop();
                     break;
                 case R.id.rl_kongtiao_kaiguan:
                     setScaleAnimation(rlKongtiao);
-                    if (airFlag==0){
-                        linearAirDetails.setVisibility(View.VISIBLE);
-                        airFlag = 1;
-                        Toast.makeText(activity, "空调开", Toast.LENGTH_SHORT).show();
-                        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                        linearAirDetails.measure(w, h);
-                        AirConditionHeight = linearAirDetails.getMeasuredHeight();         //空调控制部分的高度
-                        Log.i(TAG, "onClick: ---------------------------"+AirConditionHeight);
-
-
-                        /*Handler handler = new Handler();
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                svPullUpMenu.smoothScrollTo(0,1537+AirConditionHeight);
-                            }
-                        });*/
-
-
-
-                    }else if (airFlag==1){
-                        linearAirDetails.setVisibility(View.GONE);
-                        airFlag = 0;
-                        Toast.makeText(activity, "空调关", Toast.LENGTH_SHORT).show();
-                    }
+                    clickAirSwitch();
                     break;
                 case R.id.rl_kongtiao_moshi:
                     setScaleAnimation(rlKongtiaoMoshi);
@@ -556,6 +534,78 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         }
     };
 
+    //灯光亮度调节监听
+    View.OnScrollChangeListener hsChangeListener = new View.OnScrollChangeListener() {
+        @Override
+        public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+            Log.i(TAG, "onScrollChange: "+i);
+        }
+    };
+
+    //空调温度调节滑块监听
+    SeekBar.OnSeekBarChangeListener tempSeekBarListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            if (i<10){
+                tvKongtiaoTemp.setText("16°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+            }else if (i>=10&&i<20){
+                tvKongtiaoTemp.setText("17°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorPrimary));
+            }else if (i>=20&&i<30){
+                tvKongtiaoTemp.setText("18°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorBule));
+            }else if (i>=30&&i<40){
+                tvKongtiaoTemp.setText("19°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorBule));
+            }else if (i>=40&&i<50){
+                tvKongtiaoTemp.setText("20°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorBule));
+            }else if (i>=50&&i<60){
+                tvKongtiaoTemp.setText("21°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorGreen));
+            }else if (i>=60&&i<70){
+                tvKongtiaoTemp.setText("22°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorGreen));
+            }else if (i>=70&&i<80){
+                tvKongtiaoTemp.setText("23°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorGreen));
+            }else if (i>=80&&i<90){
+                tvKongtiaoTemp.setText("24°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorYellowGreen));
+            }else if (i>=90&&i<100){
+                tvKongtiaoTemp.setText("25°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorYellowGreen));
+            }else if (i>=100&&i<110){
+                tvKongtiaoTemp.setText("26°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorYellowGreen));
+            }else if (i>=110&&i<120){
+                tvKongtiaoTemp.setText("27°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorYellow));
+            }else if (i>=120&&i<130){
+                tvKongtiaoTemp.setText("28°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorYellow));
+            }else if (i>=130&&i<140){
+                tvKongtiaoTemp.setText("29°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorTextActive));
+            }else if (i>=140){
+                tvKongtiaoTemp.setText("30°");
+                tvKongtiaoTemp.setTextColor(activity.getResources().getColor(R.color.colorTextActive));
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+    
+
     //初始化背景图片
     private void initBackGround(){
         //随机取出一张图片
@@ -569,7 +619,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             public void run() {
                 while (true){
                     try {
-                        Thread.sleep(8000);
+                        Thread.sleep(30000);
                         Message message = new Message();
                         message.what = 1;
                         handler.sendMessage(message);
@@ -591,7 +641,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 @Override
                 public void onAnimationEnd(Animator animation) {          //动画结束的监听
                     super.onAnimationEnd(animation);
-                    //ivBackGround.setImageResource(backList[random1.nextInt(backList.length)]);
                     Bitmap bitmap = readBitMap(activity,backList[random1.nextInt(backList.length)]);
                     ivBackGround.setImageBitmap(bitmap);
                 }
@@ -608,7 +657,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 @Override
                 public void onAnimationEnd(Animator animation) {          //动画结束的监听
                     super.onAnimationEnd(animation);
-                    //ivBackGroundTrans.setImageResource(backList[random1.nextInt(backList.length)]);
                     Bitmap bitmap = readBitMap(activity,backList[random1.nextInt(backList.length)]);
                     ivBackGroundTrans.setImageBitmap(bitmap);
                 }
@@ -802,6 +850,187 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         svPullUpMenu.scrollTo(x,y);
     }
 
+
+    /*
+     *    ---------------------------------点击图标变色---------------------------------
+     */
+    //---------------------------------------场景-----------------------------------------
+    private void changeColorToActive1(int imgId1,int imgId2,int colorId){
+        ivXiuxianOut.setImageResource(imgId1);
+        ivXiuxianIn.setImageResource(imgId2);
+        tvXiuxian.setTextColor(activity.getResources().getColor(colorId));
+    }
+    private void changeColorToActive2(int imgId1,int imgId2,int imgId3,int colorId){
+        ivYule1.setImageResource(imgId1);
+        ivYule2.setImageResource(imgId2);
+        ivYule3.setImageResource(imgId3);
+        tvYule.setTextColor(activity.getResources().getColor(colorId));
+    }
+    private void changeColorToActive3(int imgId1,int imgId2,int colorId){
+        ivJuhui1.setImageResource(imgId1);
+        ivJuhui2.setImageResource(imgId2);
+        tvJuhui.setTextColor(activity.getResources().getColor(colorId));
+    }
+    private void changeColorToActive4(int imgId1,int colorId){
+        ivLikai.setImageResource(imgId1);
+        tvLikai.setTextColor(activity.getResources().getColor(colorId));
+    }
+    //点击事件
+    private void clickXiuxian(){
+        changeColorToActive1(R.mipmap.theme2_jiating_xiuxian_active_ani_3x,R.mipmap.theme2_jiating_xiuxian_active_ani_in_3x,R.color.colorTextActive);
+        changeColorToActive2(R.mipmap.theme2_jiating_yule_1_3x,R.mipmap.theme2_jiating_yule_2_3x,R.mipmap.theme2_jiating_yule_3_3x,R.color.colorText);
+        changeColorToActive3(R.mipmap.theme2_jiating_juhui_ani_3x,R.mipmap.theme2_jiating_juhui_ani_in_3x,R.color.colorText);
+        changeColorToActive4(R.mipmap.theme2_jiating_likai_ani_3x,R.color.colorText);
+    }
+    private void clickYule(){
+        changeColorToActive1(R.mipmap.theme2_jiating_xiuxian_ani_3x,R.mipmap.theme2_jiating_xiuxian_ani_in_3x,R.color.colorText);
+        changeColorToActive2(R.mipmap.theme2_jiating_yule_active_1_3x,R.mipmap.theme2_jiating_yule_active_2_3x,R.mipmap.theme2_jiating_yule_active_3_3x,R.color.colorTextActive);
+        changeColorToActive3(R.mipmap.theme2_jiating_juhui_ani_3x,R.mipmap.theme2_jiating_juhui_ani_in_3x,R.color.colorText);
+        changeColorToActive4(R.mipmap.theme2_jiating_likai_ani_3x,R.color.colorText);
+    }
+    private void clickJuhui(){
+        changeColorToActive1(R.mipmap.theme2_jiating_xiuxian_ani_3x,R.mipmap.theme2_jiating_xiuxian_ani_in_3x,R.color.colorText);
+        changeColorToActive2(R.mipmap.theme2_jiating_yule_1_3x,R.mipmap.theme2_jiating_yule_2_3x,R.mipmap.theme2_jiating_yule_3_3x,R.color.colorText);
+        changeColorToActive3(R.mipmap.theme2_jiating_juhui_active_ani_3x,R.mipmap.theme2_jiating_juhui_active_ani_in_3x,R.color.colorTextActive);
+        changeColorToActive4(R.mipmap.theme2_jiating_likai_ani_3x,R.color.colorText);
+    }
+    private void clickLikai(){
+        changeColorToActive1(R.mipmap.theme2_jiating_xiuxian_ani_3x,R.mipmap.theme2_jiating_xiuxian_ani_in_3x,R.color.colorText);
+        changeColorToActive2(R.mipmap.theme2_jiating_yule_1_3x,R.mipmap.theme2_jiating_yule_2_3x,R.mipmap.theme2_jiating_yule_3_3x,R.color.colorText);
+        changeColorToActive3(R.mipmap.theme2_jiating_juhui_ani_3x,R.mipmap.theme2_jiating_juhui_ani_in_3x,R.color.colorText);
+        changeColorToActive4(R.mipmap.theme2_jiating_likai_active_ani_3x,R.color.colorTextActive);
+    }
+
+    //----------------------------------窗帘-----------------------------------
+    private void changeColorBulian(int imgIdHead,int imgId1,int colorId,String text){
+        ivBulianHead.setImageResource(imgIdHead);
+        ivBulian1.setImageResource(imgId1);
+        ivBulian2.setImageResource(imgId1);
+        ivBulian3.setImageResource(imgId1);
+        ivBulian4.setImageResource(imgId1);
+        ivBulian5.setImageResource(imgId1);
+        ivBulian6.setImageResource(imgId1);
+        ivBulianHead1.setImageResource(imgIdHead);
+        tvBulian.setTextColor(activity.getResources().getColor(colorId));
+        tvBulian.setText(text);
+    }
+    private void changeColorShalian(int imgIdHead,int imgId1,int colorId,String text){
+        ivShalianHead.setImageResource(imgIdHead);
+        ivShalian1.setImageResource(imgId1);
+        ivShalian2.setImageResource(imgId1);
+        ivShalian3.setImageResource(imgId1);
+        ivShalian4.setImageResource(imgId1);
+        ivShalian5.setImageResource(imgId1);
+        ivShalian6.setImageResource(imgId1);
+        ivShalianHead1.setImageResource(imgIdHead);
+        tvShalian.setTextColor(activity.getResources().getColor(colorId));
+        tvShalian.setText(text);
+    }
+    private void changeColorAll(int imgId1,int colorId,String text){
+        ivAll.setImageResource(imgId1);
+        tvAll.setTextColor(activity.getResources().getColor(colorId));
+        tvAll.setText(text);
+    }
+    private void changeColorStop(int imgId1,int colorId){
+        ivStop.setImageResource(imgId1);
+        tvStop.setTextColor(activity.getResources().getColor(colorId));
+    }
+    //点击
+    private int bulianFlag = 0;
+    private int shalianFlag = 0;
+    private int AllFlag = 0;
+    private int StopFlag = 0;
+
+    private void clickBulian(){
+        if (bulianFlag==0){
+            changeColorBulian(R.mipmap.theme2_chuanglian_head_active_3x,R.mipmap.theme2_chuanglian_solidline_active_3x,R.color.colorTextActive,"布帘 开");
+            bulianFlag = 1;
+        }else if (bulianFlag==1){
+            changeColorBulian(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.theme2_chuanglian_solidline_3x,R.color.colorText,"布帘 关");
+            bulianFlag = 0;
+        }
+    }
+    private void clickShalian(){
+        if (shalianFlag==0){
+            changeColorShalian(R.mipmap.theme2_chuanglian_head_active_3x,R.mipmap.theme2_chuanglian_viualline_active_3x,R.color.colorTextActive,"纱帘 开");
+            shalianFlag = 1;
+        }else if (shalianFlag==1){
+            changeColorShalian(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.theme2_chuanglian_viualline_3x,R.color.colorText,"纱帘 关");
+            shalianFlag = 0;
+        }
+    }
+    private void clickAll(){
+        if (AllFlag==0){
+            changeColorAll(R.mipmap.theme2_chuanglian_quanguan_open_3x,R.color.colorTextActive,"全 开");
+            AllFlag = 1;
+        }else if (AllFlag==1){
+            changeColorAll(R.mipmap.theme2_chuanglian_quanguan_close_3x,R.color.colorText,"全 关");
+            AllFlag = 0;
+        }
+    }
+    private void clickStop(){
+        if (StopFlag==0){
+            changeColorStop(R.mipmap.theme2_chuanglian_zanting_active_3x,R.color.colorTextActive);
+            StopFlag = 1;
+        }else if (StopFlag==1){
+            changeColorStop(R.mipmap.theme2_chuanglian_zanting_3x,R.color.colorText);
+            StopFlag = 0;
+        }
+    }
+
+    //----------------------------------------空调-----------------------------------------
+    private void changeColorAirSwitch(int imgId,int colorId,String text){
+        ivKongtiaoSwitch.setImageResource(imgId);
+        tvKongtiaoSwitch.setTextColor(activity.getResources().getColor(colorId));
+        tvKongtiaoSwitch.setText(text);
+    }
+    //点击
+    private int airSwitchFlag = 0;
+    private void clickAirSwitch(){
+        if (airSwitchFlag==0){
+            changeColorAirSwitch(R.mipmap.theme2_kongtiao_fan_active_3x,R.color.colorTextActive,"空调 开");
+            linearAirDetails.setVisibility(View.VISIBLE);
+            int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            linearAirDetails.measure(w, h);
+            AirConditionHeight = linearAirDetails.getMeasuredHeight();         //空调控制部分的高度
+            Log.i(TAG, "onClick: ---------------------------"+AirConditionHeight);
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    svPullUpMenu.smoothScrollToSlow(0,1534+AirConditionHeight,2000);
+                }
+            });
+            airSwitchFlag = 1;
+        }else if (airSwitchFlag==1){
+            changeColorAirSwitch(R.mipmap.theme2_kongtiao_fan_3x,R.color.colorText,"空调 关");
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    svPullUpMenu.smoothScrollToSlow(0,1534,2000);
+                }
+            });
+
+            //开个线程，睡2秒，隐藏空调调温部分
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        Message message = new Message();
+                        message.what = 1;
+                        handlerAir.sendMessage(message);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            airSwitchFlag = 0;
+        }
+    }
 
 
     /*

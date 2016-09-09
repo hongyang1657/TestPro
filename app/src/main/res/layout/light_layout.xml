@@ -24,8 +24,8 @@
         <RelativeLayout
             android:id="@+id/relative_light_value"
             android:layout_below="@id/tv_light_point"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

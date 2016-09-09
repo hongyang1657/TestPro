@@ -59,6 +59,8 @@ public class MyMainActivity extends FragmentActivity{
 
         ivMusic = (ImageView) findViewById(R.id.iv_music);
         ivMedia = (ImageView) findViewById(R.id.iv_media);
+        ivMusic.setOnClickListener(mediaListener);
+        ivMedia.setOnClickListener(mediaListener);
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
 
@@ -76,11 +78,22 @@ public class MyMainActivity extends FragmentActivity{
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);  //多设置一页
         viewPager.addOnPageChangeListener(pagerChangeListener);
-
-
         //手势
-
     }
+
+    View.OnClickListener mediaListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.iv_music:
+                    Toast.makeText(MyMainActivity.this, "音乐", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.iv_media:
+                    Toast.makeText(MyMainActivity.this, "媒体", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
 
     private void pullMenu(MyFragment myF){

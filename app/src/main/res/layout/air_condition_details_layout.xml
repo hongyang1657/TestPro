@@ -3,15 +3,15 @@
     android:id="@+id/linear_air_details"
     android:orientation="vertical"
     android:background="@mipmap/mohu"
-    android:visibility="gone"
     android:padding="4dp"
-
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:padding="10dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,13 +21,16 @@
             android:clickable="true"
             android:padding="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
         <SeekBar
             android:id="@+id/sb_air_temp"
-            android:thumb="@mipmap/ic_launcher"
-            android:max="100"
+            android:thumb="@mipmap/thumb"
+            android:maxHeight="4dp"
+            android:minHeight="2dp"
+            android:max="150"
+            android:progressDrawable="@drawable/air_temp_seekbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

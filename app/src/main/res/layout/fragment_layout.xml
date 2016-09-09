@@ -6,7 +6,6 @@
 
     <com.byids.hy.testpro.View.MyCustomScrollView
         android:clickable="false"
-        android:scrollbars="none"
         android:id="@+id/id_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -95,7 +94,6 @@
 
     <com.byids.hy.testpro.View.MyPullUpScrollView
         android:id="@+id/scroll_pull_up"
-        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -151,10 +149,6 @@
                 android:gravity="bottom"
                 android:padding="10dp"
                 android:textColor="@color/colorWhite"
-                android:shadowRadius="10"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowColor="#464547"
                 android:layout_width="match_parent"
                 android:layout_height="650dp" />
 
@@ -171,7 +165,7 @@
 
             <TextView
                 android:id="@+id/tv_light"
-                android:text="灯光"
+                android:text="灯 光"
                 android:textColor="@color/colorText"
                 android:background="@mipmap/mohu"
                 android:clickable="true"
@@ -182,7 +176,7 @@
 
             <TextView
                 android:id="@+id/tv_curtain"
-                android:text="窗帘"
+                android:text="窗 帘"
                 android:textColor="@color/colorText"
                 android:background="@mipmap/mohu"
                 android:clickable="true"
@@ -193,7 +187,7 @@
 
             <TextView
                 android:id="@+id/tv_air_condition"
-                android:text="空调"
+                android:text="空 调"
                 android:textColor="@color/colorText"
                 android:background="@mipmap/mohu"
                 android:clickable="true"

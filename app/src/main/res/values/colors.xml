@@ -8,4 +8,9 @@
     <color name="colorGray">#FF4081</color>
     <color name="colorText">#a3a3a3</color>
     <color name="colorTextActive">#FEAA53</color>
+    <color name="colorBule">#00a6ac</color>
+    <color name="colorGreen">#65c294</color>
+    <color name="colorDeepGreen">#005344</color>
+    <color name="colorYellowGreen">#bed742</color>
+    <color name="colorYellow">#ffc20e</color>
 </resources>
