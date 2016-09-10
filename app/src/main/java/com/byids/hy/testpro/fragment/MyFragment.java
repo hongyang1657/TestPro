@@ -300,7 +300,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         //Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
         ivBackGround.setLayoutParams(params);
         ivBackGroundTrans.setLayoutParams(params);
-        svPullUpMenu.setLayoutParams(params);   //设置上拉菜单全屏
+        //svPullUpMenu.setLayoutParams(params);   //设置上拉菜单全屏
 
         //设置头部控件高度和点击按钮一致
         ViewGroup.LayoutParams layoutParams = linearClick.getLayoutParams();
@@ -466,7 +466,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         rlAirControl3.setOnClickListener(controlListener);
 
         sbTemp.setOnSeekBarChangeListener(tempSeekBarListener);  //空调调温SeekBar
-        hsLightValue.setOnScrollChangeListener(hsChangeListener);
+        //hsLightValue.setOnScrollChangeListener(hsChangeListener);
 
     }
 
@@ -534,13 +534,13 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         }
     };
 
-    //灯光亮度调节监听
+    /*//灯光亮度调节监听
     View.OnScrollChangeListener hsChangeListener = new View.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View view, int i, int i1, int i2, int i3) {
             Log.i(TAG, "onScrollChange: "+i);
         }
-    };
+    };*/
 
     //空调温度调节滑块监听
     SeekBar.OnSeekBarChangeListener tempSeekBarListener = new SeekBar.OnSeekBarChangeListener() {
