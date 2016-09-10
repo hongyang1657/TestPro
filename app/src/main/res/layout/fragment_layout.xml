@@ -7,6 +7,7 @@
     <com.byids.hy.testpro.View.MyCustomScrollView
         android:clickable="false"
         android:id="@+id/id_scroll"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -87,13 +88,12 @@
                 android:layout_height="wrap_content" />
 
 
-
-
         </RelativeLayout>
     </com.byids.hy.testpro.View.MyCustomScrollView>
 
     <com.byids.hy.testpro.View.MyPullUpScrollView
         android:id="@+id/scroll_pull_up"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -150,10 +150,10 @@
                 android:padding="10dp"
                 android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
-                android:layout_height="650dp" />
+                android:layout_height="150dp" />
 
             <TextView
-                android:id="@+id/tv_scene"
+                android:id="@+id/tv_scene_name"
                 android:background="@mipmap/mohu"
                 android:text="场 景"
                 android:textColor="@color/colorText"

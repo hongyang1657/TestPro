@@ -36,37 +36,37 @@
             <ImageView
                 android:id="@+id/iv_bulian_1"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_bulian_2"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_bulian_3"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_bulian_4"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_bulian_5"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_bulian_6"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_solidline_3x"
+                android:src="@mipmap/chuanglian_solidline_3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
          </LinearLayout>

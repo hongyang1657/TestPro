@@ -59,10 +59,21 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private TextView tvLock;
     private TextView tvSecurity;
 
+    private int width;  //屏幕宽
+    private int height;    //屏幕高
     private int btHeight;     //头部菜单的高度
     private int btHeight_X3;  //头部菜单高度的三倍  (因为两个ScrollView的联动为3倍率)
     private int AirConditionHeight;        //空调控制部分的布局高度
     private boolean isHeadShown = false;     //头菜单是否显示
+
+    private TextView tvScene;       //场景
+    private LinearLayout linearScene;    //场景控制部分
+    private TextView tvLight;           //灯光
+    //上拉菜单初始化浮现的部分（以上三个部分）的高度
+    private int tvSceneHeight;
+    private int linearSceneHeight;
+    private int tvLightHeight;
+    private int initFloatHeight;      //打开app时浮现部分的高度（三个部分高度之和）
 
 
     private ImageView ivBackGround;   //背景图片
@@ -87,7 +98,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private float y;
 
     //---------------------控制部分 上---------------------
-    private TextView tvRoomName;
+    private TextView tvRoomName;     //房间名部分
     private Button btShezhi;
     private Button btJiankong;
     private Button btMensuo;
@@ -278,6 +289,16 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linearMenu.measure(w, h);
         btHeight = linearMenu.getMeasuredHeight();         //头菜单的高度
         btHeight_X3 = btHeight*3;
+        //获取浮现的三个部分的高度
+        tvScene.measure(w,h);
+        linearScene.measure(w,h);
+        tvLight.measure(w,h);
+        tvSceneHeight = tvScene.getMeasuredHeight();
+        linearSceneHeight = linearScene.getMeasuredHeight();
+        tvLightHeight = tvLight.getMeasuredHeight();
+        initFloatHeight = tvSceneHeight+linearSceneHeight+tvLightHeight;  //app打开时下面浮动部分的高度
+
+        Log.i(TAG, "onCreateView: tvSceneHeight----"+tvSceneHeight+"linearSceneHeight---------"+linearSceneHeight+"tvLightHeight--------"+tvLightHeight);
         Log.i("result", "onCreateView: ----kongjian-----"+btHeight);
 
         scrollView = (MyCustomScrollView) view.findViewById(R.id.id_scroll);
@@ -291,8 +312,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         });*/
         //获取屏幕宽高，设置图片大小一致
         WindowManager wm = this.getActivity().getWindowManager();
-        int width = wm.getDefaultDisplay().getWidth();
-        int height = wm.getDefaultDisplay().getHeight();
+        width = wm.getDefaultDisplay().getWidth();
+        height = wm.getDefaultDisplay().getHeight();
         params = ivBackGround.getLayoutParams();
         int statusHeight = getStatusBar();
         params.height = height - statusHeight+500;       //设置图片长度，使上拉时有图片上升的一个效果
@@ -306,6 +327,11 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         ViewGroup.LayoutParams layoutParams = linearClick.getLayoutParams();
         layoutParams.height = btHeight;
         linearClick.setLayoutParams(layoutParams);
+
+        tvRoomName.setText(roomName);    //设置房间名
+        ViewGroup.LayoutParams layoutParams1 = tvRoomName.getLayoutParams();
+        layoutParams1.height = height-initFloatHeight+btHeight*2;     //设置房间textview的高度 = 屏幕高 - 浮出部分高 + 上部控件的高*2
+        tvRoomName.setLayoutParams(layoutParams1);
 
         scrollToBottomInit();   //初始化ScrollView的位置
 
@@ -369,13 +395,18 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         btBufang.setOnClickListener(clickListener);
 //        linearClick.
 
-        tvRoomName.setText(roomName);    //设置房间名
+
 
         initControler();    //初始化控制部分  下
         initBackGround();   //初始化背景图片
     }
 
     private void initControler(){
+        //初始化 浮现的部分
+        tvScene = (TextView) view.findViewById(R.id.tv_scene_name);
+        linearScene = (LinearLayout) view.findViewById(R.id.linear_scene);
+        tvLight = (TextView) view.findViewById(R.id.tv_light);
+
         //场景
          rlXiuxian = (RelativeLayout) view.findViewById(R.id.rl_xiuxian);
          rlYule = (RelativeLayout) view.findViewById(R.id.rl_yule);
@@ -753,9 +784,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                     final float preY = y;
                     float nowY = ev.getY();
                     int deltaY = (int) (preY - nowY) / size;
-
                     int yy = linear.getTop() - deltaY;
-
                     break;
                 default:
                     break;
@@ -879,7 +908,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private void clickXiuxian(){
         changeColorToActive1(R.mipmap.theme2_jiating_xiuxian_active_ani_3x,R.mipmap.theme2_jiating_xiuxian_active_ani_in_3x,R.color.colorTextActive);
         changeColorToActive2(R.mipmap.theme2_jiating_yule_1_3x,R.mipmap.theme2_jiating_yule_2_3x,R.mipmap.theme2_jiating_yule_3_3x,R.color.colorText);
-        changeColorToActive3(R.mipmap.theme2_jiating_juhui_ani_3x,R.mipmap.theme2_jiating_juhui_ani_in_3x,R.color.colorText);
+        changeColorToActive3(R.mipmap.theme2_jiating_juhui_ani_3x,R.mipmap. theme2_jiating_juhui_ani_in_3x,R.color.colorText);
         changeColorToActive4(R.mipmap.theme2_jiating_likai_ani_3x,R.color.colorText);
     }
     private void clickYule(){
@@ -946,7 +975,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             changeColorBulian(R.mipmap.theme2_chuanglian_head_active_3x,R.mipmap.theme2_chuanglian_solidline_active_3x,R.color.colorTextActive,"布帘 开");
             bulianFlag = 1;
         }else if (bulianFlag==1){
-            changeColorBulian(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.theme2_chuanglian_solidline_3x,R.color.colorText,"布帘 关");
+            changeColorBulian(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.chuanglian_solidline_3,R.color.colorText,"布帘 关");
             bulianFlag = 0;
         }
     }
