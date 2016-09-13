@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_light_point_ex08"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex07"
+        android:layout_toRightOf="@id/iv_light_point_ex08"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex06"
+        android:layout_toRightOf="@id/iv_light_point_ex07"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex05"
+        android:layout_toRightOf="@id/iv_light_point_ex06"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex04"
+        android:layout_toRightOf="@id/iv_light_point_ex05"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex03"
+        android:layout_toRightOf="@id/iv_light_point_ex04"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex02"
+        android:layout_toRightOf="@id/iv_light_point_ex03"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex01"
+        android:layout_toRightOf="@id/iv_light_point_ex02"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex1"
+        android:layout_toRightOf="@id/iv_light_point_ex01"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex2"
+        android:layout_toRightOf="@id/iv_light_point_ex1"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex3"
+        android:layout_toRightOf="@id/iv_light_point_ex2"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex4"
+        android:layout_toRightOf="@id/iv_light_point_ex3"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex5"
+        android:layout_toRightOf="@id/iv_light_point_ex4"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex6"
+        android:layout_toRightOf="@id/iv_light_point_ex5"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex7"
+        android:layout_toRightOf="@id/iv_light_point_ex6"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex8"
+        android:layout_toRightOf="@id/iv_light_point_ex7"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex9"
+        android:layout_toRightOf="@id/iv_light_point_ex8"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point_ex10"
+        android:layout_toRightOf="@id/iv_light_point_ex9"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point1"
+        android:layout_toRightOf="@id/iv_light_point_ex10"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point2"
+        android:layout_toRightOf="@id/iv_light_point1"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point3"
+        android:layout_toRightOf="@id/iv_light_point2"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point4"
+        android:layout_toRightOf="@id/iv_light_point3"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point5"
+        android:layout_toRightOf="@id/iv_light_point4"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point6"
+        android:layout_toRightOf="@id/iv_light_point5"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point7"
+        android:layout_toRightOf="@id/iv_light_point6"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point8"
+        android:layout_toRightOf="@id/iv_light_point7"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point9"
+        android:layout_toRightOf="@id/iv_light_point8"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point10"
+        android:layout_toRightOf="@id/iv_light_point9"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point11"
+        android:layout_toRightOf="@id/iv_light_point10"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point12"
+        android:layout_toRightOf="@id/iv_light_point11"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point13"
+        android:layout_toRightOf="@id/iv_light_point12"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point14"
+        android:layout_toRightOf="@id/iv_light_point13"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point15"
+        android:layout_toRightOf="@id/iv_light_point14"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point16"
+        android:layout_toRightOf="@id/iv_light_point15"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point17"
+        android:layout_toRightOf="@id/iv_light_point16"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point18"
+        android:layout_toRightOf="@id/iv_light_point17"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point19"
+        android:layout_toRightOf="@id/iv_light_point18"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point20"
+        android:layout_toRightOf="@id/iv_light_point19"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point21"
+        android:layout_toRightOf="@id/iv_light_point20"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point22"
+        android:layout_toRightOf="@id/iv_light_point21"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point23"
+        android:layout_toRightOf="@id/iv_light_point22"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point24"
+        android:layout_toRightOf="@id/iv_light_point23"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point25"
+        android:layout_toRightOf="@id/iv_light_point24"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point26"
+        android:layout_toRightOf="@id/iv_light_point25"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point27"
+        android:layout_toRightOf="@id/iv_light_point26"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point28"
+        android:layout_toRightOf="@id/iv_light_point27"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point29"
+        android:layout_toRightOf="@id/iv_light_point28"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point30"
+        android:layout_toRightOf="@id/iv_light_point29"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point31"
+        android:layout_toRightOf="@id/iv_light_point30"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point32"
+        android:layout_toRightOf="@id/iv_light_point31"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point33"
+        android:layout_toRightOf="@id/iv_light_point32"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point34"
+        android:layout_toRightOf="@id/iv_light_point33"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point35"
+        android:layout_toRightOf="@id/iv_light_point34"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point36"
+        android:layout_toRightOf="@id/iv_light_point35"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point37"
+        android:layout_toRightOf="@id/iv_light_point36"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point38"
+        android:layout_toRightOf="@id/iv_light_point37"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point39"
+        android:layout_toRightOf="@id/iv_light_point38"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point40"
+        android:layout_toRightOf="@id/iv_light_point39"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point41"
+        android:layout_toRightOf="@id/iv_light_point40"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point42"
+        android:layout_toRightOf="@id/iv_light_point41"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point43"
+        android:layout_toRightOf="@id/iv_light_point42"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point44"
+        android:layout_toRightOf="@id/iv_light_point43"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point45"
+        android:layout_toRightOf="@id/iv_light_point44"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point46"
+        android:layout_toRightOf="@id/iv_light_point45"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point47"
+        android:layout_toRightOf="@id/iv_light_point46"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point48"
+        android:layout_toRightOf="@id/iv_light_point47"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point49"
+        android:layout_toRightOf="@id/iv_light_point48"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point50"
+        android:layout_toRightOf="@id/iv_light_point49"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point51"
+        android:layout_toRightOf="@id/iv_light_point50"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point52"
+        android:layout_toRightOf="@id/iv_light_point51"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point53"
+        android:layout_toRightOf="@id/iv_light_point52"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point54"
+        android:layout_toRightOf="@id/iv_light_point53"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point55"
+        android:layout_toRightOf="@id/iv_light_point54"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point56"
+        android:layout_toRightOf="@id/iv_light_point55"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point57"
+        android:layout_toRightOf="@id/iv_light_point56"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point58"
+        android:layout_toRightOf="@id/iv_light_point57"
+        android:src="@mipmap/huigang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_light_point59"
+        android:layout_toRightOf="@id/iv_light_point58"
+        android:src="@mipmap/huanggang_3x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <!--刻度-->
+    <TextView
+        android:id="@+id/tv_value1"
+        android:text="0"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point_ex10"
+        android:layout_alignRight="@id/iv_light_point2"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value2"
+        android:text="10"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point4"
+        android:layout_alignRight="@id/iv_light_point6"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value3"
+        android:text="20"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point8"
+        android:layout_alignRight="@id/iv_light_point10"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value4"
+        android:text="30"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point12"
+        android:layout_alignRight="@id/iv_light_point14"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value5"
+        android:text="40"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point16"
+        android:layout_alignRight="@id/iv_light_point18"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value6"
+        android:text="50"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point20"
+        android:layout_alignRight="@id/iv_light_point22"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value7"
+        android:text="60"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point24"
+        android:layout_alignRight="@id/iv_light_point26"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value8"
+        android:text="70"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point28"
+        android:layout_alignRight="@id/iv_light_point30"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value9"
+        android:text="80"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point32"
+        android:layout_alignRight="@id/iv_light_point34"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value10"
+        android:text="90"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point36"
+        android:layout_alignRight="@id/iv_light_point38"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_value11"
+        android:text="100"
+        android:textSize="6sp"
+        android:textColor="@color/colorText"
+        android:layout_below="@id/iv_light_point1"
+        android:layout_alignLeft="@id/iv_light_point40"
+        android:layout_alignRight="@id/iv_light_point42"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

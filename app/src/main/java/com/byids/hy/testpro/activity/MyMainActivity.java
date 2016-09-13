@@ -56,11 +56,20 @@ public class MyMainActivity extends FragmentActivity{
         initView();
     }
     private void initView(){
+        WindowManager wm = this.getWindowManager();
+        int width = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();
+        Log.i(TAG, "initView: ____________________"+width+"___________________"+height);
 
         ivMusic = (ImageView) findViewById(R.id.iv_music);
         ivMedia = (ImageView) findViewById(R.id.iv_media);
         ivMusic.setOnClickListener(mediaListener);
         ivMedia.setOnClickListener(mediaListener);
+        int h = (int) ((int) height*0.03);
+        int w = (int) ((int) width*0.035);
+        int h1 = (int) ((int) height*0.021);
+        ivMusic.setPadding(0,h,w,0);
+        ivMedia.setPadding(0,h1,w,0);
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
 
@@ -182,9 +191,9 @@ public class MyMainActivity extends FragmentActivity{
     }
     //控件滑出显示的动画
     private void showAnimation(){
-        ObjectAnimator.ofFloat(ivMusic,"translationX",200,-6,0).setDuration(1200).start();
-        ObjectAnimator oa1 = ObjectAnimator.ofFloat(ivMedia,"translationX",250,-6,0);
-        oa1.setDuration(1300);
+        ObjectAnimator.ofFloat(ivMusic,"translationX",200,-10,0).setDuration(800).start();
+        ObjectAnimator oa1 = ObjectAnimator.ofFloat(ivMedia,"translationX",250,-10,0);
+        oa1.setDuration(1000);
         //oa1.setStartDelay(100);
         oa1.start();
 

@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
@@ -75,6 +76,12 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int tvLightHeight;
     private int initFloatHeight;      //打开app时浮现部分的高度（三个部分高度之和）
 
+    private int lightValueHeight1;      //灯光刻度条黄条的长度
+    private int lightValueHeight2;      //灯光刻度条四个灰条的长度
+    private int horizontalHeight;      //horizontalScrollView的长度
+    private int rlLightValueHeight;    //relativeLayout的长度
+    private int lightAxisExWidth;       //数轴左右多出部分的长度
+    private int lightAxisinitValue;      //数轴初始化滑到0刻度时需要滚动的数值
 
     private ImageView ivBackGround;   //背景图片
     private ImageView ivBackGroundTrans;      //切换背景图片
@@ -96,6 +103,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int scrollY; //下滑的距离
     private static final int size = 4;
     private float y;
+    private int position;    //上拉菜单滑动位置
+    private int mScrollY;    //滑动停止的位置
 
     //---------------------控制部分 上---------------------
     private TextView tvRoomName;     //房间名部分
@@ -128,6 +137,9 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
     //灯光
     private HorizontalScrollView hsLightValue;
+    private RelativeLayout rlLightValue;
+    private ImageView ivLightValue1;      //黄色指针
+    private ImageView ivLightValue2;      //灰色指针
     private RelativeLayout rlLight;
     private ImageView ivLightSwitch;
     private TextView tvLightSwitch;
@@ -223,7 +235,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
         initView();
 
-
         btPullMenu.setOnClickListener(pullMenuListener);
         //上拉菜单   子scrollview
         svPullUpMenu = (MyPullUpScrollView) view.findViewById(R.id.scroll_pull_up);
@@ -262,7 +273,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
             private void handleStop(Object view) {
                 ScrollView scroller = (ScrollView) view;
-                int mScrollY = scroller.getScrollY();
+                mScrollY = scroller.getScrollY();
                 Log.i(TAG, "handleStop: ----------mScrollY----------"+mScrollY);
                 if (mScrollY>(btHeight_X3/2)&&mScrollY<=btHeight_X3){
                     scrollToBottom();        //滑动到隐藏头
@@ -276,12 +287,13 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 }
             }
         });
-        /*svPullUpMenu.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        svPullUpMenu.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                Log.i(, "onScrollChange: ");
+                position = i1;
+                Log.i(TAG, "onScrollChange:??????????? "+i1);
             }
-        });*/
+        });
 
         //获取控件高度
         int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -297,9 +309,37 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linearSceneHeight = linearScene.getMeasuredHeight();
         tvLightHeight = tvLight.getMeasuredHeight();
         initFloatHeight = tvSceneHeight+linearSceneHeight+tvLightHeight;  //app打开时下面浮动部分的高度
+        //获取灯光刻度条图片的长度
+        ivLightValue1.measure(w,h);
+        lightValueHeight1 = ivLightValue1.getMeasuredWidth();
+        ivLightValue2.measure(w,h);
+        lightValueHeight2 = ivLightValue2.getMeasuredWidth();
+        lightAxisExWidth = (lightValueHeight1+lightValueHeight2)*9+3;        //初始化数轴左右多出部分的长度
+        Log.i(TAG, "onCreateView: 刻度条"+lightValueHeight1+"灰条"+lightValueHeight2+"-------数轴左右多出部分的长度"+lightAxisExWidth);
 
-        Log.i(TAG, "onCreateView: tvSceneHeight----"+tvSceneHeight+"linearSceneHeight---------"+linearSceneHeight+"tvLightHeight--------"+tvLightHeight);
-        Log.i("result", "onCreateView: ----kongjian-----"+btHeight);
+        //获取灯光刻度条HorizontalScrollView控件的宽度
+        hsLightValue.measure(w,h);
+        horizontalHeight = hsLightValue.getMeasuredWidthAndState();
+        Log.i(TAG, "onCreateView: HorizontalScrollView宽度"+horizontalHeight);
+        //获取灯光刻度条rlLightValue控件的宽度
+        ViewTreeObserver vto2 = rlLightValue.getViewTreeObserver();
+        vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rlLightValue.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                rlLightValueHeight = rlLightValue.getWidth();      //数轴可显示部分的长度
+                Log.i(TAG, "onCreateView: 控件的长度？？"+rlLightValueHeight);
+                lightAxisinitValue = lightAxisExWidth - (rlLightValueHeight/2);
+                Log.i(TAG, "onCreateView: !!!!!!!!!!!!!!!!!!!!!"+lightAxisinitValue);
+                //初始化hsScrollView的位置（指针指向0刻度）
+                Log.i(TAG, "run: ----------------------"+lightAxisinitValue);
+                hsLightValue.scrollTo(lightAxisinitValue,0);
+
+            }
+        });
+
+        //设置
+
 
         scrollView = (MyCustomScrollView) view.findViewById(R.id.id_scroll);
         //scrollView.setDownOnConnectionListener(this);
@@ -353,8 +393,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        //手势
         activity = getActivity();
+        //手势
         //gestureDetector = new GestureDetector(activity,new MyCustomGesture());
 
         /*listener = new MyMainActivity.MyOntouchListener(){
@@ -444,6 +484,9 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         tvLikai = (TextView) view.findViewById(R.id.tv_likai);
         //灯光
         hsLightValue = (HorizontalScrollView) view.findViewById(R.id.hs_light_point);
+        rlLightValue = (RelativeLayout) view.findViewById(R.id.relative_light_control);
+        ivLightValue1 = (ImageView) view.findViewById(R.id.iv_light_point1);
+        ivLightValue2 = (ImageView) view.findViewById(R.id.iv_light_point2);
         ivLightSwitch = (ImageView) view.findViewById(R.id.iv_light_switch);
         tvLightSwitch = (TextView) view.findViewById(R.id.tv_light_kaiguan);
         tvLightValue = (TextView) view.findViewById(R.id.tv_light_point);
@@ -497,7 +540,104 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         rlAirControl3.setOnClickListener(controlListener);
 
         sbTemp.setOnSeekBarChangeListener(tempSeekBarListener);  //空调调温SeekBar
-        //hsLightValue.setOnScrollChangeListener(hsChangeListener);
+        hsLightValue.setOnScrollChangeListener(hsChangeListener);
+        //判断hsScrollView是否停下
+        hsLightValue.setOnTouchListener(new View.OnTouchListener() {
+            private int lastX = 0;
+            private int touchEventId = -9983762;
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    View scroller = (View) msg.obj;
+                    if (msg.what == touchEventId) {
+                        if (lastX == scroller.getScrollX()) {
+                            handleStop(scroller);
+                        } else {
+                            handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller),15);
+                            lastX = scroller.getScrollX();
+                        }
+                    }
+                }
+            };
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    handler.sendMessageDelayed(handler.obtainMessage(touchEventId, view), 5);
+                }
+                hsLightValue.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+
+            private void handleStop(Object view) {
+                HorizontalScrollView scroller = (HorizontalScrollView) view;
+                int mScrollX = scroller.getScrollX();
+                Log.i(TAG, "handleStop: ----------mScrollX11----------"+mScrollX);
+                Log.i(TAG, "handleStop: ----------lightAxisinitValue----------"+lightAxisinitValue);
+
+                if(mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5){
+                    hsScrollMeasure("0",0);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5){
+                    hsScrollMeasure("5",1);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5){
+                    hsScrollMeasure("10",2);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5){
+                    hsScrollMeasure("15",3);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5){
+                    hsScrollMeasure("20",4);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5){
+                    hsScrollMeasure("25",5);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5){
+                    hsScrollMeasure("30",6);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5){
+                    hsScrollMeasure("35",7);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5){
+                    hsScrollMeasure("40",8);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5){
+                    hsScrollMeasure("45",9);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5){
+                    hsScrollMeasure("50",10);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5){
+                    hsScrollMeasure("55",11);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5){
+                    hsScrollMeasure("60",12);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5){
+                    hsScrollMeasure("65",13);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5){
+                    hsScrollMeasure("70",14);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5){
+                    hsScrollMeasure("75",15);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5){
+                    hsScrollMeasure("80",16);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5){
+                    hsScrollMeasure("85",17);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5){
+                    hsScrollMeasure("90",18);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
+                    hsScrollMeasure("95",19);
+                }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
+                    hsScrollMeasure("100",20);
+                }
+
+            }
+
+            /*
+            * lightValue 灯光亮度数值0~100
+            * scrollTo  0~20   21个调光刻度
+            *
+            * */
+            private void hsScrollMeasure(String lightValue, final int scrollTo){
+                //Handler handler = new Handler();
+                tvLightValue.setText(lightValue);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        hsLightValue.smoothScrollTo(lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*scrollTo,0);
+                    }
+                });
+            }
+        });
 
     }
 
@@ -565,13 +705,14 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         }
     };
 
-    /*//灯光亮度调节监听
+    //灯光亮度调节监听
     View.OnScrollChangeListener hsChangeListener = new View.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View view, int i, int i1, int i2, int i3) {
             Log.i(TAG, "onScrollChange: "+i);
+
         }
-    };*/
+    };
 
     //空调温度调节滑块监听
     SeekBar.OnSeekBarChangeListener tempSeekBarListener = new SeekBar.OnSeekBarChangeListener() {
@@ -640,9 +781,12 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     //初始化背景图片
     private void initBackGround(){
         //随机取出一张图片
-        Random random = new Random();
-        ivBackGround.setImageResource(backList[random.nextInt(backList.length)]);
-        ivBackGroundTrans.setImageResource(backList[random.nextInt(backList.length)]);
+        //ivBackGround.setImageResource(backList[random.nextInt(backList.length)]);
+        //ivBackGroundTrans.setImageResource(backList[random.nextInt(backList.length)]);
+        Bitmap bitmap = readBitMap(getActivity(),backList[random1.nextInt(backList.length)]);
+        ivBackGround.setImageBitmap(bitmap);
+        Bitmap bitmap1 = readBitMap(getActivity(),backList[random1.nextInt(backList.length)]);
+        ivBackGroundTrans.setImageBitmap(bitmap1);
 
         //开线程  隔一段时间切换图片
         new Thread(new Runnable() {
@@ -1016,6 +1160,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     //点击
     private int airSwitchFlag = 0;
     private void clickAirSwitch(){
+        //rlKongtiao.setClickable(false);   //点击后设为不可点击
         if (airSwitchFlag==0){
             changeColorAirSwitch(R.mipmap.theme2_kongtiao_fan_active_3x,R.color.colorTextActive,"空调 开");
             linearAirDetails.setVisibility(View.VISIBLE);
@@ -1028,7 +1173,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    svPullUpMenu.smoothScrollToSlow(0,1534+AirConditionHeight,2000);
+                    svPullUpMenu.smoothScrollBySlow(0,AirConditionHeight,2000);
                 }
             });
             airSwitchFlag = 1;
@@ -1038,7 +1183,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    svPullUpMenu.smoothScrollToSlow(0,1534,2000);
+                    svPullUpMenu.smoothScrollBySlow(0,-AirConditionHeight,2000);
                 }
             });
 
@@ -1067,7 +1212,10 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
      */
     @Override
     public boolean onDown(MotionEvent motionEvent) {
-        Log.i(TAG, "onDown: ----------");
+        if (mScrollY<=(btHeight_X3/2)){
+            Log.i(TAG, "onDown: ----------"+position);
+
+        }
         return true;
     }
 

@@ -13,19 +13,19 @@
 
     <ImageView
         android:id="@+id/iv_music"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="18dp"
+        android:paddingTop="18dp"
+        android:paddingRight="18dp"
         android:clickable="true"
-        android:src="@mipmap/music_byids"
+        android:src="@mipmap/music_2x"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/iv_media"
-        android:layout_margin="18dp"
+        android:padding="18dp"
         android:clickable="true"
         android:layout_below="@id/iv_music"
-        android:src="@mipmap/sleep_byids"
+        android:src="@mipmap/sleep_2x"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
