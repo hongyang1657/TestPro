@@ -82,6 +82,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int rlLightValueHeight;    //relativeLayout的长度
     private int lightAxisExWidth;       //数轴左右多出部分的长度
     private int lightAxisinitValue;      //数轴初始化滑到0刻度时需要滚动的数值
+    private int linearPullUpScrollHeight;        //上拉菜单的长度
 
     private ImageView ivBackGround;   //背景图片
     private ImageView ivBackGroundTrans;      //切换背景图片
@@ -91,6 +92,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private String roomName;   //房间名
     private GestureDetector detector;
     //private MyMainActivity.MyOntouchListener listener;
+    private MyMainActivity.MyOnTouchListener myOnTouchListener;
     private Activity activity;
     private ImageView btPullMenu;
     private RelativeLayout linear;
@@ -99,12 +101,14 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     MyPullUpScrollView svPullUpMenu;
     PullDownMenuListener pullDownMenuListener;//自定义的下拉监听
     ViewGroup.LayoutParams params;
+    LinearLayout linearPullUpScroll;  //上拉菜单整个布局
 
     private int scrollY; //下滑的距离
     private static final int size = 4;
     private float y;
     private int position;    //上拉菜单滑动位置
     private int mScrollY;    //滑动停止的位置
+    private int lightSVPosition;    //灯光调光模块动态值
 
     //---------------------控制部分 上---------------------
     private TextView tvRoomName;     //房间名部分
@@ -145,36 +149,25 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private TextView tvLightSwitch;
     private TextView tvLightValue;    //灯光亮度值
 
-    //窗帘
-    private RelativeLayout rlBulian;
-    private ImageView ivBulianHead;
-    private ImageView ivBulian1;
-    private ImageView ivBulian2;
-    private ImageView ivBulian3;
-    private ImageView ivBulian4;
-    private ImageView ivBulian5;
-    private ImageView ivBulian6;
-    private ImageView ivBulianHead1;
-    private TextView tvBulian;
+    //窗帘（布帘，纱帘），卷帘（左，右卷帘）
+    private RelativeLayout rlBulian,rlJuanlian;
+    private ImageView ivBulianHead,ivJuanlianHead;
+    private ImageView ivBulian1,ivBulian2,ivBulian3,ivBulian4,ivBulian5,ivBulian6,
+            ivJuanlian1,ivJuanlian2,ivJuanlian3,ivJuanlian4,ivJuanlian5,ivJuanlian6;
+    private ImageView ivBulianHead1,ivJuanlianHead1;
+    private TextView tvBulian,tvJuanlian;
 
-    private RelativeLayout rlShalian;
-    private ImageView ivShalianHead;
-    private ImageView ivShalian1;
-    private ImageView ivShalian2;
-    private ImageView ivShalian3;
-    private ImageView ivShalian4;
-    private ImageView ivShalian5;
-    private ImageView ivShalian6;
-    private ImageView ivShalianHead1;
-    private TextView tvShalian;
+    private RelativeLayout rlShalian,rlJuanlianR;
+    private ImageView ivShalianHead,ivJuanlianHeadR;
+    private ImageView ivShalian1,ivShalian2,ivShalian3,ivShalian4,ivShalian5,ivShalian6,
+            ivJuanlian1R,ivJuanlian2R,ivJuanlian3R,ivJuanlian4R,ivJuanlian5R,ivJuanlian6R;
+    private ImageView ivShalianHead1,ivJuanlianHead1R;
+    private TextView tvShalian,tvJuanlianR;
+    //窗帘,卷帘，全关 全开
+    private RelativeLayout rlAll,rlStop,rlAllJuan,rlStopJuan;
+    private ImageView ivAll,ivStop,ivAllJuan,ivStopJuan;
+    private TextView tvAll,tvStop,tvAllJuan,tvStopJuan;
 
-    private RelativeLayout rlAll;
-    private ImageView ivAll;       //窗帘，全关 全开
-    private TextView tvAll;
-
-    private RelativeLayout rlStop;
-    private ImageView ivStop;
-    private TextView tvStop;
 
     //空调
     private RelativeLayout rlKongtiao;
@@ -203,7 +196,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 case 1:
                     setBGPAnimation();
                     //svPullUpMenu.setLayoutParams(params);            //更新scrollView？
-                    Log.i(TAG, "handleMessage: 111111111111111111111111");
+                    Log.i(TAG, "handleMessage:切换背景图 ");
                     break;
                 default:
                     break;
@@ -214,13 +207,20 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            linearAirDetails.setVisibility(View.GONE);
+            switch (msg.what){
+                case 1:
+                    linearAirDetails.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+
         }
     };
 
 
     private int[] backList;  //背景图片组
-    public MyFragment(int roomIndex, String roomName,int[] backList) {
+    public MyFragment(int roomIndex,String roomName,int[] backList) {
         this.roomIndex = roomIndex;
         this.roomName = roomName;
         this.backList = backList;
@@ -238,6 +238,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         btPullMenu.setOnClickListener(pullMenuListener);
         //上拉菜单   子scrollview
         svPullUpMenu = (MyPullUpScrollView) view.findViewById(R.id.scroll_pull_up);
+        linearPullUpScroll = (LinearLayout) view.findViewById(R.id.linear_pull_up_scroll);
         svPullUpMenu.setOnConnectionListener(this);
         svPullUpMenu.setScrollViewListener(pullDownListener);
 
@@ -275,7 +276,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 ScrollView scroller = (ScrollView) view;
                 mScrollY = scroller.getScrollY();
                 Log.i(TAG, "handleStop: ----------mScrollY----------"+mScrollY);
-                if (mScrollY>(btHeight_X3/2)&&mScrollY<=btHeight_X3){
+                /*if (mScrollY>(btHeight_X3/2)&&mScrollY<=btHeight_X3){
                     scrollToBottom();        //滑动到隐藏头
                     isHeadShown = false;
                     pullDown(true);
@@ -284,6 +285,11 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                     scrollToTop();           //滑动到显示头
                     isHeadShown = true;
                     pullDown(false);
+                }*/
+                if(mScrollY<btHeight_X3){
+                    scrollToBottom();        //滑动到隐藏头
+                    isHeadShown = false;
+                    pullDown(true);
                 }
             }
         });
@@ -291,7 +297,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
                 position = i1;
-                Log.i(TAG, "onScrollChange:??????????? "+i1);
+                Log.i(TAG, "onScrollChange: i="+i+"   i1="+i1+"   i2="+i2+"   i3="+i3);
             }
         });
 
@@ -301,6 +307,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linearMenu.measure(w, h);
         btHeight = linearMenu.getMeasuredHeight();         //头菜单的高度
         btHeight_X3 = btHeight*3;
+
         //获取浮现的三个部分的高度
         tvScene.measure(w,h);
         linearScene.measure(w,h);
@@ -309,18 +316,23 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         linearSceneHeight = linearScene.getMeasuredHeight();
         tvLightHeight = tvLight.getMeasuredHeight();
         initFloatHeight = tvSceneHeight+linearSceneHeight+tvLightHeight;  //app打开时下面浮动部分的高度
+        Log.i(TAG, "onCreateView:app打开时下面浮动部分的高度 "+tvSceneHeight+"-----------"+linearSceneHeight+"-----------------"+tvLightHeight);
+
+        //整个上拉菜单的高度
+        svPullUpMenu.measure(w,h);
+        linearPullUpScrollHeight = svPullUpMenu.getMeasuredHeight();
+        Log.i(TAG, "onCreateView: 整个上拉菜单的高度"+linearPullUpScrollHeight);
+
         //获取灯光刻度条图片的长度
         ivLightValue1.measure(w,h);
         lightValueHeight1 = ivLightValue1.getMeasuredWidth();
         ivLightValue2.measure(w,h);
         lightValueHeight2 = ivLightValue2.getMeasuredWidth();
         lightAxisExWidth = (lightValueHeight1+lightValueHeight2)*9+3;        //初始化数轴左右多出部分的长度
-        Log.i(TAG, "onCreateView: 刻度条"+lightValueHeight1+"灰条"+lightValueHeight2+"-------数轴左右多出部分的长度"+lightAxisExWidth);
 
         //获取灯光刻度条HorizontalScrollView控件的宽度
         hsLightValue.measure(w,h);
         horizontalHeight = hsLightValue.getMeasuredWidthAndState();
-        Log.i(TAG, "onCreateView: HorizontalScrollView宽度"+horizontalHeight);
         //获取灯光刻度条rlLightValue控件的宽度
         ViewTreeObserver vto2 = rlLightValue.getViewTreeObserver();
         vto2.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -358,10 +370,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         int statusHeight = getStatusBar();
         params.height = height - statusHeight+500;       //设置图片长度，使上拉时有图片上升的一个效果
         params.width = width;
-        //Log.i("result", "onCreateView:------------高度 "+(height - statusHeight)+"------宽度"+width);
         ivBackGround.setLayoutParams(params);
         ivBackGroundTrans.setLayoutParams(params);
-        //svPullUpMenu.setLayoutParams(params);   //设置上拉菜单全屏
 
         //设置头部控件高度和点击按钮一致
         ViewGroup.LayoutParams layoutParams = linearClick.getLayoutParams();
@@ -377,7 +387,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
         //手势
         final GestureDetector mGestureDetector = new GestureDetector(getActivity(), this);
-        MyMainActivity.MyOnTouchListener myOnTouchListener = new MyMainActivity.MyOnTouchListener() {
+        myOnTouchListener = new MyMainActivity.MyOnTouchListener() {
             @Override
             public boolean onTouch(MotionEvent ev) {
                 boolean result = mGestureDetector.onTouchEvent(ev);
@@ -394,18 +404,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         activity = getActivity();
-        //手势
-        //gestureDetector = new GestureDetector(activity,new MyCustomGesture());
-
-        /*listener = new MyMainActivity.MyOntouchListener(){
-
-            @Override
-            public void onTouchEvent(MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-            }
-        };
-        ((MyMainActivity) activity).registerListener(listener);*/
         super.onActivityCreated(savedInstanceState);
+
     }
 
     private void initView(){
@@ -435,8 +435,6 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         btBufang.setOnClickListener(clickListener);
 //        linearClick.
 
-
-
         initControler();    //初始化控制部分  下
         initBackGround();   //初始化背景图片
     }
@@ -455,10 +453,15 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         //灯光
          rlLight = (RelativeLayout) view.findViewById(R.id.relative_light_switch);
         //窗帘
-         rlBulian = (RelativeLayout) view.findViewById(R.id.rl_bulian);
-         rlShalian = (RelativeLayout) view.findViewById(R.id.rl_shalian);
-         rlAll = (RelativeLayout) view.findViewById(R.id.rl_quanguan);
-         rlStop = (RelativeLayout) view.findViewById(R.id.rl_tingzhi);
+        rlBulian = (RelativeLayout) view.findViewById(R.id.rl_bulian);
+        rlShalian = (RelativeLayout) view.findViewById(R.id.rl_shalian);
+        rlAll = (RelativeLayout) view.findViewById(R.id.rl_quanguan);
+        rlStop = (RelativeLayout) view.findViewById(R.id.rl_tingzhi);
+        //卷帘
+        rlJuanlian = (RelativeLayout) view.findViewById(R.id.rl_juanlian);
+        rlJuanlianR = (RelativeLayout) view.findViewById(R.id.rl_juanlian_r);
+        rlAllJuan = (RelativeLayout) view.findViewById(R.id.rl_quanguan_juanlian);
+        rlStopJuan = (RelativeLayout) view.findViewById(R.id.rl_tingzhi_juanlian);
         //空调
          rlKongtiao = (RelativeLayout) view.findViewById(R.id.rl_kongtiao_kaiguan);
          rlKongtiaoMoshi = (RelativeLayout) view.findViewById(R.id.rl_kongtiao_moshi);
@@ -510,11 +513,35 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         ivShalian6 = (ImageView) view.findViewById(R.id.iv_shalian_6);
         ivShalianHead1 = (ImageView) view.findViewById(R.id.iv_shalian_head_2);
         tvShalian = (TextView) view.findViewById(R.id.tv_shalian);
+        //左 卷帘
+        ivJuanlianHead = (ImageView) view.findViewById(R.id.iv_juanlian_head);
+        ivJuanlian1 = (ImageView) view.findViewById(R.id.iv_juanlian_1);
+        ivJuanlian2 = (ImageView) view.findViewById(R.id.iv_juanlian_2);
+        ivJuanlian3 = (ImageView) view.findViewById(R.id.iv_juanlian_3);
+        ivJuanlian4 = (ImageView) view.findViewById(R.id.iv_juanlian_4);
+        ivJuanlian5 = (ImageView) view.findViewById(R.id.iv_juanlian_5);
+        ivJuanlian6 = (ImageView) view.findViewById(R.id.iv_juanlian_6);
+        ivJuanlianHead1 = (ImageView) view.findViewById(R.id.iv_juanlian_head_1);
+        tvJuanlian = (TextView) view.findViewById(R.id.tv_juanlian);
+        //右 卷帘
+        ivJuanlianHeadR = (ImageView) view.findViewById(R.id.iv_juanlian_head_r);
+        ivJuanlian1R = (ImageView) view.findViewById(R.id.iv_juanlian_1_r);
+        ivJuanlian2R = (ImageView) view.findViewById(R.id.iv_juanlian_2_r);
+        ivJuanlian3R = (ImageView) view.findViewById(R.id.iv_juanlian_3_r);
+        ivJuanlian4R = (ImageView) view.findViewById(R.id.iv_juanlian_4_r);
+        ivJuanlian5R = (ImageView) view.findViewById(R.id.iv_juanlian_5_r);
+        ivJuanlian6R = (ImageView) view.findViewById(R.id.iv_juanlian_6_r);
+        ivJuanlianHead1R = (ImageView) view.findViewById(R.id.iv_juanlian_head_1_r);
+        tvJuanlianR = (TextView) view.findViewById(R.id.tv_juanlian_r);
         //全开 全关
         ivAll = (ImageView) view.findViewById(R.id.iv_chuanglian_all);
         tvAll = (TextView) view.findViewById(R.id.tv_all);
         ivStop = (ImageView) view.findViewById(R.id.iv_chuanglian_stop);
         tvStop = (TextView) view.findViewById(R.id.tv_chuanglian_stop);
+        ivAllJuan = (ImageView) view.findViewById(R.id.iv_chuanglian_all_juanlian);
+        tvAllJuan = (TextView) view.findViewById(R.id.tv_all_juanlian);
+        ivStopJuan = (ImageView) view.findViewById(R.id.iv_chuanglian_stop_juanlian);
+        tvStopJuan = (TextView) view.findViewById(R.id.tv_chuanglian_stop_juanlian);
         //空调
         ivKongtiaoSwitch = (ImageView) view.findViewById(R.id.iv_kongtiao_kaiguan);
         tvKongtiaoSwitch = (TextView) view.findViewById(R.id.tv_kongtiao_kaiguan);
@@ -529,10 +556,16 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         rlLikai.setOnClickListener(controlListener);
 
         rlLight.setOnClickListener(controlListener);
+
         rlBulian.setOnClickListener(controlListener);
         rlShalian.setOnClickListener(controlListener);
         rlAll.setOnClickListener(controlListener);
         rlStop.setOnClickListener(controlListener);
+        rlJuanlian.setOnClickListener(controlListener);
+        rlJuanlianR.setOnClickListener(controlListener);
+        rlAllJuan.setOnClickListener(controlListener);
+        rlStopJuan.setOnClickListener(controlListener);
+
         rlKongtiao.setOnClickListener(controlListener);
         rlKongtiaoMoshi.setOnClickListener(controlListener);
         rlAirControl1.setOnClickListener(controlListener);
@@ -577,47 +610,47 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 Log.i(TAG, "handleStop: ----------lightAxisinitValue----------"+lightAxisinitValue);
 
                 if(mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5){
-                    hsScrollMeasure("0",0);
+                    hsScrollMeasure(0);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5){
-                    hsScrollMeasure("5",1);
+                    hsScrollMeasure(1);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5){
-                    hsScrollMeasure("10",2);
+                    hsScrollMeasure(2);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5){
-                    hsScrollMeasure("15",3);
+                    hsScrollMeasure(3);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5){
-                    hsScrollMeasure("20",4);
+                    hsScrollMeasure(4);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5){
-                    hsScrollMeasure("25",5);
+                    hsScrollMeasure(5);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5){
-                    hsScrollMeasure("30",6);
+                    hsScrollMeasure(6);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5){
-                    hsScrollMeasure("35",7);
+                    hsScrollMeasure(7);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5){
-                    hsScrollMeasure("40",8);
+                    hsScrollMeasure(8);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5){
-                    hsScrollMeasure("45",9);
+                    hsScrollMeasure(9);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5){
-                    hsScrollMeasure("50",10);
+                    hsScrollMeasure(10);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5){
-                    hsScrollMeasure("55",11);
+                    hsScrollMeasure(11);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5){
-                    hsScrollMeasure("60",12);
+                    hsScrollMeasure(12);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5){
-                    hsScrollMeasure("65",13);
+                    hsScrollMeasure(13);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5){
-                    hsScrollMeasure("70",14);
+                    hsScrollMeasure(14);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5){
-                    hsScrollMeasure("75",15);
+                    hsScrollMeasure(15);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5){
-                    hsScrollMeasure("80",16);
+                    hsScrollMeasure(16);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5){
-                    hsScrollMeasure("85",17);
+                    hsScrollMeasure(17);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5){
-                    hsScrollMeasure("90",18);
+                    hsScrollMeasure(18);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5 && mScrollX<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
-                    hsScrollMeasure("95",19);
+                    hsScrollMeasure(19);
                 }else if (mScrollX>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
-                    hsScrollMeasure("100",20);
+                    hsScrollMeasure(20);
                 }
 
             }
@@ -627,9 +660,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             * scrollTo  0~20   21个调光刻度
             *
             * */
-            private void hsScrollMeasure(String lightValue, final int scrollTo){
+            private void hsScrollMeasure(final int scrollTo){
                 //Handler handler = new Handler();
-                tvLightValue.setText(lightValue);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -647,6 +679,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.rl_xiuxian:
+
                     setScaleAnimation(rlXiuxian);
                     clickXiuxian();
                     break;
@@ -681,6 +714,22 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                     setScaleAnimation(rlStop);
                     clickStop();
                     break;
+                case R.id.rl_juanlian:
+                    setScaleAnimation(rlJuanlian);
+                    clickJuanlian();
+                    break;
+                case R.id.rl_juanlian_r:
+                    setScaleAnimation(rlJuanlianR);
+                    clickJuanlianR();
+                    break;
+                case R.id.rl_quanguan_juanlian:
+                    setScaleAnimation(rlAllJuan);
+                    clickAllJuan();
+                    break;
+                case R.id.rl_tingzhi_juanlian:
+                    setScaleAnimation(rlStopJuan);
+                    clickStopJuan();
+                    break;
                 case R.id.rl_kongtiao_kaiguan:
                     setScaleAnimation(rlKongtiao);
                     clickAirSwitch();
@@ -709,8 +758,51 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     View.OnScrollChangeListener hsChangeListener = new View.OnScrollChangeListener() {
         @Override
         public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+            lightSVPosition = i;
             Log.i(TAG, "onScrollChange: "+i);
-
+            if(lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5){
+                tvLightValue.setText("0");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*0.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5){
+                tvLightValue.setText("5");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*1.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5){
+                tvLightValue.setText("10");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*2.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5){
+                tvLightValue.setText("15");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*3.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5){
+                tvLightValue.setText("20");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*4.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5){
+                tvLightValue.setText("25");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*5.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5){
+                tvLightValue.setText("30");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*6.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5){
+                tvLightValue.setText("35");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*7.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5){
+                tvLightValue.setText("40");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*8.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5){
+                tvLightValue.setText("45");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*9.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5){
+                tvLightValue.setText("50");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*10.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5){
+                tvLightValue.setText("55");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*11.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5){
+                tvLightValue.setText("60");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*12.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5){
+                tvLightValue.setText("65");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*13.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5){
+                tvLightValue.setText("70");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*14.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5){
+                tvLightValue.setText("75");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*15.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5){
+                tvLightValue.setText("80");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*16.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5){
+                tvLightValue.setText("85");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*17.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5){
+                tvLightValue.setText("90");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*18.5 && lightSVPosition<=lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
+                tvLightValue.setText("95");
+            }else if (lightSVPosition>lightAxisinitValue+(lightValueHeight1+lightValueHeight2)*19.5){
+                tvLightValue.setText("100");
+            }
         }
     };
 
@@ -794,7 +886,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             public void run() {
                 while (true){
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(50000);
                         Message message = new Message();
                         message.what = 1;
                         handler.sendMessage(message);
@@ -901,16 +993,44 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     ScrollViewListener pullDownListener = new ScrollViewListener() {
         @Override
         public void onScrollChanged(MyPullUpScrollView scrollView, int x, int y, int oldx, int oldy) {
+            int hideHeight = (initFloatHeight*2)+btHeight_X3;    //控件隐藏的临界点
+
             //加入手势，松开的时候 判断距离，选择菜单栏出现还是隐藏的动画
             scrollY = y;
             //Log.i("result", "onScrollChanged:-----------x-----------"+x+"----------y---------"+y);
-            //Log.i(TAG, "onScrollChanged: -------scrollY--------"+scrollY);
-
+            Log.i(TAG, "onScrollChanged: -------scrollY--------"+scrollY);
             //判断向下滑的时候(y<控件的高度)    button消失
             if (scrollY==btHeight_X3) {           //乘以三是因为手指移动和滑动是三倍率
                 btPullMenu.setVisibility(View.VISIBLE);
-            }else {
+                ObjectAnimator.ofFloat(btPullMenu,"alpha",0f,1f).setDuration(400).start();
+            }else if (scrollY<btHeight_X3){
                 btPullMenu.setVisibility(View.GONE);
+            }
+            //向上滑动到一大半时，隐藏桌面两个小控件，房间名。
+            if (scrollY<hideHeight){
+                tvRoomName.setAlpha(1f);
+            }else if (scrollY>=hideHeight && scrollY<hideHeight+10){
+                tvRoomName.setAlpha(0.9f);
+            }else if (scrollY>=hideHeight+10 && scrollY<hideHeight+20){
+                tvRoomName.setAlpha(0.8f);
+            }else if (scrollY>=hideHeight+20 && scrollY<hideHeight+30){
+                tvRoomName.setAlpha(0.7f);
+            }else if (scrollY>=hideHeight+30 && scrollY<hideHeight+40){
+                tvRoomName.setAlpha(0.6f);
+            }else if (scrollY>=hideHeight+40 && scrollY<hideHeight+50){
+                tvRoomName.setAlpha(0.5f);
+            }else if (scrollY>=hideHeight+50 && scrollY<hideHeight+60){
+                tvRoomName.setAlpha(0.4f);
+            }else if (scrollY>=hideHeight+60 && scrollY<hideHeight+70){
+                tvRoomName.setAlpha(0.3f);
+            }else if (scrollY>=hideHeight+70 && scrollY<hideHeight+80){
+                tvRoomName.setAlpha(0.2f);
+            }else if (scrollY>=hideHeight+80 && scrollY<hideHeight+90){
+                tvRoomName.setAlpha(0.1f);
+            }else if (scrollY>=hideHeight+90 && scrollY<hideHeight+100){
+                tvRoomName.setAlpha(0.05f);
+            }else if (scrollY>=hideHeight+100){
+                tvRoomName.setAlpha(0f);
             }
         }
 
@@ -953,21 +1073,23 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             //隐藏button
             btPullMenu.setVisibility(View.GONE);
 
-            //两种方式弹出菜单：1.smoothScroll    2.属性动画
-            Handler handler = new Handler();
+            //弹出菜单     smoothScroll
+            if (flag==true){
+                svPullUpMenu.smoothScrollToSlow(0,-btHeight_X3,1600);
+                flag = false;
+                pullDown(flag);
+            }else if (flag==false){
+                svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,1600);
+                flag = true;
+                pullDown(flag);
+            }
+            /*Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (flag==true){
-                        svPullUpMenu.smoothScrollTo(0,-btHeight_X3);
-                        flag = false;
-                        pullDown(flag);
-                    }else if (flag==false){
-                        svPullUpMenu.smoothScrollTo(0,btHeight_X3);
-                        flag = true;
-                    }
+
                 }
-            });
+            });*/
         }
     };
 
@@ -979,8 +1101,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         handler.post(new Runnable() {
             @Override
             public void run() {
-                svPullUpMenu.smoothScrollTo(0,btHeight_X3);
-                scrollView.smoothScrollTo(0,btHeight);
+                svPullUpMenu.scrollTo(0,btHeight_X3);
+                scrollView.scrollTo(0,btHeight);
                 flag = true;
                 btPullMenu.setVisibility(View.VISIBLE);
             }
@@ -988,15 +1110,16 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     }
     //滑动到隐藏头
     private void scrollToBottom(){
-        Handler handler = new Handler();
+        svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,800);
+        flag = true;
+        btPullMenu.setVisibility(View.VISIBLE);
+        /*Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                svPullUpMenu.smoothScrollTo(0,btHeight_X3);
-                flag = true;
-                btPullMenu.setVisibility(View.VISIBLE);
+
             }
-        });
+        });*/
     }
     //滑动到显示头
     private void scrollToTop(){
@@ -1108,11 +1231,51 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         ivStop.setImageResource(imgId1);
         tvStop.setTextColor(activity.getResources().getColor(colorId));
     }
+
+    private void changeColorJuanlian(int imgIdHead,int imgId1,int colorId,String text){
+        ivJuanlianHead.setImageResource(imgIdHead);
+        ivJuanlian1.setImageResource(imgId1);
+        ivJuanlian2.setImageResource(imgId1);
+        ivJuanlian3.setImageResource(imgId1);
+        ivJuanlian4.setImageResource(imgId1);
+        ivJuanlian5.setImageResource(imgId1);
+        ivJuanlian6.setImageResource(imgId1);
+        ivJuanlianHead1.setImageResource(imgIdHead);
+        tvJuanlian.setTextColor(activity.getResources().getColor(colorId));
+        tvJuanlian.setText(text);
+    }
+    private void changeColorJuanlianR(int imgIdHead,int imgId1,int colorId,String text){
+        ivJuanlianHeadR.setImageResource(imgIdHead);
+        ivJuanlian1R.setImageResource(imgId1);
+        ivJuanlian2R.setImageResource(imgId1);
+        ivJuanlian3R.setImageResource(imgId1);
+        ivJuanlian4R.setImageResource(imgId1);
+        ivJuanlian5R.setImageResource(imgId1);
+        ivJuanlian6R.setImageResource(imgId1);
+        ivJuanlianHead1R.setImageResource(imgIdHead);
+        tvJuanlianR.setTextColor(activity.getResources().getColor(colorId));
+        tvJuanlianR.setText(text);
+    }
+    private void changeColorAllJuan(int imgId1,int colorId,String text){
+        ivAllJuan.setImageResource(imgId1);
+        tvAllJuan.setTextColor(activity.getResources().getColor(colorId));
+        tvAllJuan.setText(text);
+    }
+    private void changeColorStopJuan(int imgId1,int colorId){
+        ivStopJuan.setImageResource(imgId1);
+        tvStopJuan.setTextColor(activity.getResources().getColor(colorId));
+    }
+
     //点击
     private int bulianFlag = 0;
     private int shalianFlag = 0;
     private int AllFlag = 0;
     private int StopFlag = 0;
+
+    private int juanlianFlag = 0;
+    private int juanlianRFlag = 0;
+    private int AllFlagJuan = 0;
+    private int StopFlagJuan = 0;
 
     private void clickBulian(){
         if (bulianFlag==0){
@@ -1151,6 +1314,45 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         }
     }
 
+    private void clickJuanlian(){
+        if (juanlianFlag==0){
+            changeColorJuanlian(R.mipmap.theme2_chuanglian_head_active_3x,R.mipmap.theme2_juanlian_solidline_active_3x,R.color.colorTextActive,"左卷帘 开");
+            juanlianFlag = 1;
+        }else if (juanlianFlag==1){
+            changeColorJuanlian(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.theme2_juanlian_solidline_3x,R.color.colorText,"左卷帘 关");
+            juanlianFlag = 0;
+        }
+    }
+    private void clickJuanlianR(){
+        if (juanlianRFlag==0){
+            changeColorJuanlianR(R.mipmap.theme2_chuanglian_head_active_3x,R.mipmap.theme2_juanlian_solidline_active_3x,R.color.colorTextActive,"右卷帘 开");
+            juanlianRFlag = 1;
+        }else if (juanlianRFlag==1){
+            changeColorJuanlianR(R.mipmap.theme2_chuanglian_head_3x,R.mipmap.theme2_juanlian_solidline_3x,R.color.colorText,"右卷帘 关");
+            juanlianRFlag = 0;
+        }
+    }
+    private void clickAllJuan(){
+        if (AllFlagJuan==0){
+            changeColorAllJuan(R.mipmap.theme2_chuanglian_quanguan_open_3x,R.color.colorTextActive,"全 开");
+            AllFlagJuan = 1;
+        }else if (AllFlagJuan==1){
+            changeColorAllJuan(R.mipmap.theme2_chuanglian_quanguan_close_3x,R.color.colorText,"全 关");
+            AllFlagJuan = 0;
+        }
+    }
+    private void clickStopJuan(){
+        if (StopFlagJuan==0){
+            changeColorStopJuan(R.mipmap.theme2_chuanglian_zanting_active_3x,R.color.colorTextActive);
+            StopFlagJuan = 1;
+        }else if (StopFlagJuan==1){
+            changeColorStopJuan(R.mipmap.theme2_chuanglian_zanting_3x,R.color.colorText);
+            StopFlagJuan = 0;
+        }
+    }
+
+
+
     //----------------------------------------空调-----------------------------------------
     private void changeColorAirSwitch(int imgId,int colorId,String text){
         ivKongtiaoSwitch.setImageResource(imgId);
@@ -1160,7 +1362,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     //点击
     private int airSwitchFlag = 0;
     private void clickAirSwitch(){
-        //rlKongtiao.setClickable(false);   //点击后设为不可点击
+        rlKongtiao.setClickable(false);   //点击后设为不可点击
         if (airSwitchFlag==0){
             changeColorAirSwitch(R.mipmap.theme2_kongtiao_fan_active_3x,R.color.colorTextActive,"空调 开");
             linearAirDetails.setVisibility(View.VISIBLE);
@@ -1169,23 +1371,36 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             linearAirDetails.measure(w, h);
             AirConditionHeight = linearAirDetails.getMeasuredHeight();         //空调控制部分的高度
             Log.i(TAG, "onClick: ---------------------------"+AirConditionHeight);
-            Handler handler = new Handler();
+            svPullUpMenu.smoothScrollBySlow(0,AirConditionHeight,2000);
+            /*Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
                     svPullUpMenu.smoothScrollBySlow(0,AirConditionHeight,2000);
                 }
-            });
+            });*/
+
+            //设置点击之后2秒内不能点击
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                        rlKongtiao.setClickable(true);
+                        Message message = new Message();
+                        message.what = 2;
+                        handlerAir.sendMessage(message);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
             airSwitchFlag = 1;
         }else if (airSwitchFlag==1){
             changeColorAirSwitch(R.mipmap.theme2_kongtiao_fan_3x,R.color.colorText,"空调 关");
-            Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    svPullUpMenu.smoothScrollBySlow(0,-AirConditionHeight,2000);
-                }
-            });
+            svPullUpMenu.smoothScrollBySlow(0,-AirConditionHeight,2000);
+
 
             //开个线程，睡2秒，隐藏空调调温部分
             new Thread(new Runnable() {
@@ -1193,6 +1408,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 public void run() {
                     try {
                         Thread.sleep(2000);
+                        rlKongtiao.setClickable(true);
                         Message message = new Message();
                         message.what = 1;
                         handlerAir.sendMessage(message);
@@ -1212,21 +1428,29 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
      */
     @Override
     public boolean onDown(MotionEvent motionEvent) {
-        if (mScrollY<=(btHeight_X3/2)){
-            Log.i(TAG, "onDown: ----------"+position);
 
-        }
         return true;
     }
 
+
     @Override
     public void onShowPress(MotionEvent motionEvent) {
-        //Log.i(TAG, "onShowPress: ---------");
+         Log.i(TAG, "onShowPress: ---------");
+        if (scrollY==0){
+            svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,600);
+            flag = true;
+            pullDown(flag);
+        }
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent motionEvent) {
-        //Log.i(TAG, "onSingleTapUp: ---------");
+        Log.i(TAG, "onSingleTapUp: ---------");
+        if (scrollY==0){
+            svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,600);
+            flag = true;
+            pullDown(flag);
+        }
         return false;
     }
 
@@ -1254,7 +1478,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
             }else if (motionEvent.getY() - motionEvent1.getY() > 89) {
                 flingUp();       //上滑
                 return true;
-            }else if (motionEvent.getY() - motionEvent1.getY() > 89) {
+            }else if (motionEvent.getY() - motionEvent1.getY() < -89) {
                 flingDown();       //下滑
                 return true;
             }
@@ -1272,14 +1496,15 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     }
 
     public void flingUp() {          //自定义方法：处理向上滑动事件
-        //Log.i(TAG, "flingUp: 上滑");
-        //scrollToBottom();        //滑动到隐藏头
-        pullDown(true);
+        /*Log.i(TAG, "flingUp: 上滑");
+        scrollToBottom();        //滑动到隐藏头
+        pullDown(true);*/
     }
 
     public void flingDown() {        //自定义方法：处理向下滑动事件
-        //scrollToTop();
-        //pullDown(false);
+        /*scrollToTop();
+        pullDown(false);
+        Log.i(TAG, "flingUp: 下滑");*/
     }
 
 

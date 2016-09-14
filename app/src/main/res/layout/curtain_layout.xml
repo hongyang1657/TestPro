@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:weightSum="4"
     android:padding="4dp"
     android:gravity="center"
     android:background="@mipmap/mohu"

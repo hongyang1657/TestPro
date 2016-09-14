@@ -82,6 +82,9 @@ public class MyMainActivity extends FragmentActivity{
         MyFragment myFragment3 = new MyFragment(2,"书房",ivBackList3);
         pullMenu(myFragment3);
         viewList.add(myFragment3);
+        MyFragment myFragment4 = new MyFragment(3,"测试",ivBackList1);
+        pullMenu(myFragment4);
+        viewList.add(myFragment4);
 
         adapter = new MyFragmentAdapter(getSupportFragmentManager(),viewList);
         viewPager.setAdapter(adapter);

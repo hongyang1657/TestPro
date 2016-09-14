@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:weightSum="4"
     android:padding="4dp"
     android:gravity="center"
     android:background="@mipmap/mohu"
@@ -10,7 +9,7 @@
 
     <!--卷帘-->
     <RelativeLayout
-        android:id="@+id/rl_bulian"
+        android:id="@+id/rl_juanlian"
         android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
@@ -18,151 +17,162 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_bulian_head"
+            android:id="@+id/iv_juanlian_head"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_chuanglian_head_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/linear_bulian"
+            android:orientation="vertical"
+            android:id="@+id/linear_juanlian"
             android:weightSum="6"
             android:layout_marginTop="4dp"
-            android:layout_alignRight="@id/iv_bulian_head"
-            android:layout_alignLeft="@id/iv_bulian_head"
+            android:layout_alignRight="@id/iv_juanlian_head"
+            android:layout_alignLeft="@id/iv_juanlian_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/iv_bulian_1"
+                android:id="@+id/iv_juanlian_1"
                 android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <ImageView
+                android:id="@+id/iv_juanlian_2"
+                android:layout_weight="1"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_bulian_2"
+                android:id="@+id/iv_juanlian_3"
                 android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_bulian_3"
+                android:id="@+id/iv_juanlian_4"
                 android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_bulian_4"
+                android:id="@+id/iv_juanlian_5"
                 android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_bulian_5"
+                android:id="@+id/iv_juanlian_6"
                 android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/iv_bulian_6"
-                android:layout_weight="1"
-                android:src="@mipmap/chuanglian_solidline_3"
-                android:layout_width="0dp"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:id="@+id/iv_bulian_head_1"
+            android:id="@+id/iv_juanlian_head_1"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_chuanglian_head_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_bulian"
-            android:text="布帘 关"
+            android:id="@+id/tv_juanlian"
+            android:text="卷帘 左"
             android:textColor="@color/colorText"
             android:paddingTop="4dp"
             android:gravity="center"
-            android:layout_below="@id/iv_bulian_head"
+            android:layout_below="@id/iv_juanlian_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-    <!--纱帘-->
+    <!--卷帘右-->
     <RelativeLayout
-        android:id="@+id/rl_shalian"
+        android:id="@+id/rl_juanlian_r"
         android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
+
         <ImageView
-            android:id="@+id/iv_shalian_head"
+            android:id="@+id/iv_juanlian_head_r"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_chuanglian_head_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/linear_shalian"
+            android:orientation="vertical"
+            android:id="@+id/linear_juanlian_r"
             android:weightSum="6"
             android:layout_marginTop="4dp"
-            android:layout_alignRight="@id/iv_shalian_head"
-            android:layout_alignLeft="@id/iv_shalian_head"
+            android:layout_alignRight="@id/iv_juanlian_head_r"
+            android:layout_alignLeft="@id/iv_juanlian_head_r"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/iv_shalian_1"
+                android:id="@+id/iv_juanlian_1_r"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+            <ImageView
+                android:id="@+id/iv_juanlian_2_r"
+                android:layout_weight="1"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_shalian_2"
+                android:id="@+id/iv_juanlian_3_r"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_shalian_3"
+                android:id="@+id/iv_juanlian_4_r"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_shalian_4"
+                android:id="@+id/iv_juanlian_5_r"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:id="@+id/iv_shalian_5"
+                android:id="@+id/iv_juanlian_6_r"
                 android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/iv_shalian_6"
-                android:layout_weight="1"
-                android:src="@mipmap/theme2_chuanglian_viualline_3x"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:src="@mipmap/theme2_juanlian_solidline_3x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:id="@+id/iv_shalian_head_2"
+            android:id="@+id/iv_juanlian_head_1_r"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/theme2_chuanglian_head_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_shalian"
-            android:text="纱帘 关"
+            android:id="@+id/tv_juanlian_r"
+            android:text="卷帘 右"
             android:textColor="@color/colorText"
-            android:gravity="center"
             android:paddingTop="4dp"
-            android:layout_below="@id/iv_shalian_head"
+            android:gravity="center"
+            android:layout_below="@id/iv_juanlian_head_r"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
@@ -170,25 +180,25 @@
 
     <!--全关-->
     <RelativeLayout
-        android:id="@+id/rl_quanguan"
+        android:id="@+id/rl_quanguan_juanlian"
         android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/iv_chuanglian_all"
+            android:id="@+id/iv_chuanglian_all_juanlian"
             android:src="@mipmap/theme2_chuanglian_quanguan_close_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_all"
+            android:id="@+id/tv_all_juanlian"
             android:text="全 关"
             android:textColor="@color/colorText"
             android:paddingTop="4dp"
-            android:layout_alignLeft="@id/iv_chuanglian_all"
-            android:layout_alignRight="@id/iv_chuanglian_all"
-            android:layout_below="@id/iv_chuanglian_all"
+            android:layout_alignLeft="@id/iv_chuanglian_all_juanlian"
+            android:layout_alignRight="@id/iv_chuanglian_all_juanlian"
+            android:layout_below="@id/iv_chuanglian_all_juanlian"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -196,25 +206,25 @@
 
     <!--停止-->
     <RelativeLayout
-        android:id="@+id/rl_tingzhi"
+        android:id="@+id/rl_tingzhi_juanlian"
         android:clickable="true"
         android:layout_weight="1"
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/iv_chuanglian_stop"
+            android:id="@+id/iv_chuanglian_stop_juanlian"
             android:src="@mipmap/theme2_chuanglian_zanting_3x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_chuanglian_stop"
+            android:id="@+id/tv_chuanglian_stop_juanlian"
             android:text="停 止"
             android:textColor="@color/colorText"
             android:paddingTop="4dp"
-            android:layout_alignLeft="@id/iv_chuanglian_stop"
-            android:layout_alignRight="@id/iv_chuanglian_stop"
-            android:layout_below="@id/iv_chuanglian_stop"
+            android:layout_alignLeft="@id/iv_chuanglian_stop_juanlian"
+            android:layout_alignRight="@id/iv_chuanglian_stop_juanlian"
+            android:layout_below="@id/iv_chuanglian_stop_juanlian"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

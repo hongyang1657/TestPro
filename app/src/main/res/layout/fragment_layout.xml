@@ -98,16 +98,11 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linear_pull_up_scroll"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--<fragment
-                android:id="@+id/fragment"
-                android:name="com.byids.hy.testpro.fragment.ControllerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/controller_fragment_layout" />-->
             <LinearLayout
                 android:id="@+id/linear_up_menu_click"
                 android:orientation="horizontal"
@@ -145,12 +140,12 @@
                 android:id="@+id/tv_blank"
                 android:clickable="true"
                 android:text="客厅"
-                android:textSize="40dp"
+                android:textSize="42sp"
                 android:gravity="bottom"
                 android:padding="10dp"
                 android:textColor="@color/colorWhite"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="70dp" />
 
             <TextView
                 android:id="@+id/tv_scene_name"
@@ -186,6 +181,17 @@
             <include layout="@layout/curtain_layout"/>
 
             <TextView
+                android:id="@+id/tv_roller_curtain"
+                android:text="卷 帘"
+                android:textColor="@color/colorText"
+                android:background="@mipmap/mohu"
+                android:clickable="true"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <include layout="@layout/roller_curtain_layout"/>
+
+            <TextView
                 android:id="@+id/tv_air_condition"
                 android:text="空 调"
                 android:textColor="@color/colorText"
@@ -196,7 +202,11 @@
                 android:layout_height="wrap_content" />
             <include layout="@layout/air_condition_layout"/>
             <include layout="@layout/air_condition_details_layout" />
-
+            <!--<ImageView
+                android:id="@+id/iv_bottom"
+                android:background="@mipmap/mohu"
+                android:layout_width="match_parent"
+                android:layout_height="500dp" />-->
 
         </LinearLayout>
     </com.byids.hy.testpro.View.MyPullUpScrollView>
@@ -210,5 +220,17 @@
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <!--<TextView
+        android:id="@+id/tv_room_name"
+        android:clickable="false"
+        android:text="客厅"
+        android:textColor="@color/colorWhite"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:background="@mipmap/myhomeback_s"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
 
 </RelativeLayout>
