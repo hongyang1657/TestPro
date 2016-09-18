@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byids.hy.testpro.OnMainListener;
 import com.byids.hy.testpro.PullDownMenuListener;
 import com.byids.hy.testpro.R;
 import com.byids.hy.testpro.View.MyCustomViewPager;
@@ -36,6 +37,8 @@ public class MyMainActivity extends FragmentActivity{
     private List<Fragment> viewList = new ArrayList<Fragment>();
     private GestureDetector gestureDetector;
     private boolean b1 = true;       //下拉菜单隐藏为true，出现为false
+    private OnMainListener onMainListener;
+    private int pagerState;
 
     //几个控件
     private TextView tvRoom;//房间名
@@ -46,6 +49,12 @@ public class MyMainActivity extends FragmentActivity{
     private int[] ivBackList1 = {R.mipmap.back_10,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14};
     private int[] ivBackList2 = {R.mipmap.back_5,R.mipmap.back_6,R.mipmap.back_8,R.mipmap.back_9};
     private int[] ivBackList3 = {R.mipmap.back_1,R.mipmap.back_2,R.mipmap.back_3,R.mipmap.back_4};
+    private int[] ivBackList = {R.mipmap.back_10,R.mipmap.back_12,R.mipmap.back_13,R.mipmap.back_14,R.mipmap.back_5,R.mipmap.back_6,R.mipmap.back_8,R.mipmap.back_9,R.mipmap.back_1,R.mipmap.back_2,R.mipmap.back_3,R.mipmap.back_4};
+
+    //房间名数组
+    private String[] roomList = {"客厅","卧室","书房","测试"};
+
+    private MyFragment myFragment1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +81,13 @@ public class MyMainActivity extends FragmentActivity{
         ivMedia.setPadding(0,h1,w,0);
         viewPager = (MyCustomViewPager) findViewById(R.id.id_vp);
 
+        for (int i=0;i<4;i++){
+            myFragment1 = new MyFragment(i,roomList[i],ivBackList);
+            pullMenu(myFragment1);
+            viewList.add(myFragment1);
+        }
 
-        MyFragment myFragment1 = new MyFragment(0,"客厅",ivBackList1);
+        /*myFragment1 = new MyFragment(0,"客厅",ivBackList1);
         pullMenu(myFragment1);
         viewList.add(myFragment1);
         MyFragment myFragment2 = new MyFragment(1,"卧室",ivBackList2);
@@ -84,11 +98,11 @@ public class MyMainActivity extends FragmentActivity{
         viewList.add(myFragment3);
         MyFragment myFragment4 = new MyFragment(3,"测试",ivBackList1);
         pullMenu(myFragment4);
-        viewList.add(myFragment4);
+        viewList.add(myFragment4);*/
 
         adapter = new MyFragmentAdapter(getSupportFragmentManager(),viewList);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(4);  //多设置一页
+        viewPager.setOffscreenPageLimit(5);  //多设置一页
         viewPager.addOnPageChangeListener(pagerChangeListener);
         //手势
     }
@@ -152,6 +166,7 @@ public class MyMainActivity extends FragmentActivity{
         @Override
         public void onPageScrollStateChanged(int state) {
             Log.i(TAG, "onPageScrollStateChanged: =-=-=-=-=-=-=-="+state);
+            pagerState = state;
             boolean isChange = false;
             if (state==2){
                 isChange = true;
@@ -171,8 +186,12 @@ public class MyMainActivity extends FragmentActivity{
                     case 2:
                         downScrollViewPager("淋浴间");
                         break;
+                    case 3:
+                        downScrollViewPager("测试");
+                        break;
                 }
             }
+            onMainListener.onMainAction(pagerState);   //Activity向Fragment通信
         }
     };
     //滑动viewpager时，控件消失
@@ -226,5 +245,17 @@ public class MyMainActivity extends FragmentActivity{
         public boolean onTouch(MotionEvent ev);
     }
 
+    /*@Override
+    public void onAttachFragment(Fragment fragment) {
+        try {
+            onMainListener = (OnMainListener)myFragment1;
+        } catch (Exception e) {
+
+        }
+        super.onAttachFragment(fragment);
+    }*/
+    public void onConnectionFragment(MyFragment fragment){
+        onMainListener = (OnMainListener)fragment;
+    }
 
 }

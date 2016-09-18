@@ -34,6 +34,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byids.hy.testpro.OnMainListener;
 import com.byids.hy.testpro.PullDownMenuListener;
 import com.byids.hy.testpro.PullUpMenuListener;
 import com.byids.hy.testpro.R;
@@ -49,7 +50,7 @@ import java.util.Random;
  * Created by hy on 2016/8/15.
  */
 @SuppressLint({"ValidFragment", "NewApi"})
-public class MyFragment extends Fragment implements PullUpMenuListener,GestureDetector.OnGestureListener {
+public class MyFragment extends Fragment implements OnMainListener,PullUpMenuListener,GestureDetector.OnGestureListener {
     private String TAG = "result";
     private View view = null;
     
@@ -66,6 +67,8 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     private int btHeight_X3;  //头部菜单高度的三倍  (因为两个ScrollView的联动为3倍率)
     private int AirConditionHeight;        //空调控制部分的布局高度
     private boolean isHeadShown = false;     //头菜单是否显示
+    private boolean isInitPosition = true;      //界面是否在初始位置
+    private int pagerScrollState;     //viewpager滑动状态
 
     private TextView tvScene;       //场景
     private LinearLayout linearScene;    //场景控制部分
@@ -276,26 +279,39 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 ScrollView scroller = (ScrollView) view;
                 mScrollY = scroller.getScrollY();
                 Log.i(TAG, "handleStop: ----------mScrollY----------"+mScrollY);
-                /*if (mScrollY>(btHeight_X3/2)&&mScrollY<=btHeight_X3){
-                    scrollToBottom();        //滑动到隐藏头
-                    isHeadShown = false;
-                    pullDown(true);
 
-                }else if(mScrollY<=(btHeight_X3/2)){
-                    scrollToTop();           //滑动到显示头
-                    isHeadShown = true;
-                    pullDown(false);
-                }*/
-                if(mScrollY<btHeight_X3){
-                    scrollToBottom();        //滑动到隐藏头
-                    isHeadShown = false;
-                    pullDown(true);
+
+                if (isInitPosition==true){
+                    if (mScrollY>(btHeight_X3/2)&&mScrollY<=btHeight_X3){
+                        scrollToBottom();        //滑动到隐藏头
+                        isHeadShown = false;
+                        pullDown(true);
+
+                    }else if(mScrollY<=(btHeight_X3/2)){
+                        scrollToTop();           //滑动到显示头
+                        isHeadShown = true;
+                        pullDown(false);
+                    }
+                }else if (isInitPosition==false){
+                    if(mScrollY<btHeight_X3){
+                        scrollToBottom();        //滑动到隐藏头
+                        isHeadShown = false;
+                        pullDown(true);
+                    }
                 }
+
+
             }
         });
         svPullUpMenu.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+                if (i1==btHeight_X3){
+                    isInitPosition = true;
+                }else if (i1>btHeight_X3){
+                    isInitPosition = false;
+                }
+                Log.i(TAG, "onScrollChange: 一枝花冻");
                 position = i1;
                 Log.i(TAG, "onScrollChange: i="+i+"   i1="+i1+"   i2="+i2+"   i3="+i3);
             }
@@ -396,7 +412,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         };
 
         ((MyMainActivity) getActivity()).registerMyOnTouchListener(myOnTouchListener);
-
+        ((MyMainActivity) getActivity()).onConnectionFragment(this);
         return view;
 
     }
@@ -1078,18 +1094,13 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
                 svPullUpMenu.smoothScrollToSlow(0,-btHeight_X3,1600);
                 flag = false;
                 pullDown(flag);
-            }else if (flag==false){
-                svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,1600);
+            }
+            if (isInitPosition==false){
+                svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,1000);
                 flag = true;
                 pullDown(flag);
             }
-            /*Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
 
-                }
-            });*/
         }
     };
 
@@ -1097,6 +1108,7 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
 
     //滑动到隐藏头 初始化
     private void scrollToBottomInit(){
+        isInitPosition = true;
         Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
@@ -1110,16 +1122,11 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
     }
     //滑动到隐藏头
     private void scrollToBottom(){
+        isInitPosition = true;
         svPullUpMenu.smoothScrollToSlow(0,btHeight_X3,800);
         flag = true;
         btPullMenu.setVisibility(View.VISIBLE);
-        /*Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        });*/
     }
     //滑动到显示头
     private void scrollToTop(){
@@ -1507,5 +1514,15 @@ public class MyFragment extends Fragment implements PullUpMenuListener,GestureDe
         Log.i(TAG, "flingUp: 下滑");*/
     }
 
+
+    //通信接口  pagerScrollState的值为viewpager滑动状态：1.开始滑动；2.松开手指；0.滑动停止
+    @Override
+    public void onMainAction(int pagerScrollState) {
+        Log.i(TAG, "onMainAction: hhahahahahahahahahhhhhhhhhhhhhhhhhhh"+pagerScrollState);
+        this.pagerScrollState = pagerScrollState;
+        if (pagerScrollState==1){
+            btPullMenu.setVisibility(View.INVISIBLE);
+        }
+    }
 
 }
